@@ -6,8 +6,10 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
 import android.view.WindowManager
+import com.jsyn.ports.UnitInputPort
 
-class RotationListener(private val windowManager: WindowManager): SensorEventListener {
+class RotationListener(private val windowManager: WindowManager,
+                       private val oscFrequencyPort: UnitInputPort): SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -58,7 +60,7 @@ class RotationListener(private val windowManager: WindowManager): SensorEventLis
                 orientation[i] = Math.toDegrees(orientation[i].toDouble()).toFloat()
             }
 
-
+            oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2].toDouble()))
 
             var lowPassFreq = -650f * orientation[1] + 21250f
 
@@ -84,19 +86,20 @@ class RotationListener(private val windowManager: WindowManager): SensorEventLis
             1567.98174393,
             1760.0
         )
-        val degreesForNote = 30
-        val degreesForHalfRange: Double = if(notes.size % 2 == 0) {
-            (notes.size / 2) * degreesForNote
+        val numberOfNotes = notes.size
+        val degreesForNote = 25
+        val degreesForHalfRange: Double = if(numberOfNotes % 2 == 0) {
+            (numberOfNotes / 2) * degreesForNote
         }
         else {
-            ((notes.size / 2) * degreesForNote) + degreesForNote / 2
+            ((numberOfNotes / 2) * degreesForNote) + degreesForNote / 2
         }.toDouble()
 
         var noteIndex = (degrees + degreesForHalfRange).toInt() / degreesForNote
         if (noteIndex < 0) {
             noteIndex = 0
-        } else if (noteIndex > 10) {
-            noteIndex = 10
+        } else if (noteIndex > numberOfNotes-1) {
+            noteIndex = numberOfNotes-1
         }
 
         return notes[noteIndex]
