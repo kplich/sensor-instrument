@@ -29,7 +29,7 @@ class SineSynthesizer: Circuit() {
 
     override fun start() {
         synth.start()
-        output.start()
+        //output.start()
     }
 
     override fun stop() {

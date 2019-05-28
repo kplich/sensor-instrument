@@ -5,11 +5,14 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.Switch
 import com.example.sensorinstrument.instruments.SineSynthesizer
 
 class MainActivity : AppCompatActivity() {
 
+    private var active = true
     private val synth: SineSynthesizer = SineSynthesizer()
     private lateinit var sensorManager: SensorManager
     private lateinit var rotationVectorSensor: Sensor
@@ -26,6 +29,16 @@ class MainActivity : AppCompatActivity() {
             SensorManager.SENSOR_DELAY_FASTEST)
 
         findViewById<Button>(R.id.playingButton)!!.setOnTouchListener(PlayingButtonListener(synth))
+
+        findViewById<Switch>(R.id.synthActive)!!.setOnClickListener { view: View? ->
+            if(active) {
+                synth.stop()
+            }
+            else {
+                synth.start()
+            }
+            active = !active
+        }
     }
 
     override fun onPause() {
