@@ -25,6 +25,9 @@ class SineSynthesizer: Circuit() {
 
         lpFilter.output.connect(0, output.input, 0)
         lpFilter.output.connect(0, output.input, 1)
+
+        lpFilter.Q.set(0.01)
+        lpFilter.amplitude.set(1.0)
     }
 
     override fun start() {
@@ -47,5 +50,9 @@ class SineSynthesizer: Circuit() {
 
     fun getOscillatorFrequencyPort(): UnitInputPort {
         return oscillator.frequency
+    }
+
+    fun getFilterFrequencyPort(): UnitInputPort {
+        return lpFilter.frequency
     }
 }

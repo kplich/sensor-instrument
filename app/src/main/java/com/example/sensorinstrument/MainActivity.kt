@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.Switch
 import com.example.sensorinstrument.instruments.SineSynthesizer
+import com.example.sensorinstrument.instruments.sensorListeners.ProximityListener
+import com.example.sensorinstrument.instruments.sensorListeners.RotationListener
 
 class MainActivity: AppCompatActivity() {
 
@@ -29,20 +31,29 @@ class MainActivity: AppCompatActivity() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-        rotationVectorListener = RotationListener(windowManager, synth.getOscillatorFrequencyPort())
+        rotationVectorListener = RotationListener(
+            windowManager,
+            synth.getOscillatorFrequencyPort(),
+            synth.getFilterFrequencyPort()
+        )
         sensorManager.registerListener(
             rotationVectorListener,
             rotationVectorSensor,
             SensorManager.SENSOR_DELAY_FASTEST)
 
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-        proximitySensorListener = ProximityListener(findViewById(R.id.synthActive))
+        proximitySensorListener =
+            ProximityListener(findViewById(R.id.synthActive))
         sensorManager.registerListener(
             proximitySensorListener,
             proximitySensor,
             SensorManager.SENSOR_DELAY_UI)
 
-        findViewById<Button>(R.id.playingButton)!!.setOnTouchListener(PlayingButtonListener(synth))
+        findViewById<Button>(R.id.playingButton)!!.setOnTouchListener(
+            PlayingButtonListener(
+                synth
+            )
+        )
 
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener { view: View? ->
             if(active) {

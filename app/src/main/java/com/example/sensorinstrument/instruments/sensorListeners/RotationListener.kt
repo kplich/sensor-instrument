@@ -1,4 +1,4 @@
-package com.example.sensorinstrument
+package com.example.sensorinstrument.instruments.sensorListeners
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -9,7 +9,8 @@ import android.view.WindowManager
 import com.jsyn.ports.UnitInputPort
 
 class RotationListener(private val windowManager: WindowManager,
-                       private val oscFrequencyPort: UnitInputPort): SensorEventListener {
+                       private val oscFrequencyPort: UnitInputPort,
+                       private val filterFrequencyPort: UnitInputPort): SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -60,19 +61,12 @@ class RotationListener(private val windowManager: WindowManager,
                 orientation[i] = Math.toDegrees(orientation[i].toDouble()).toFloat()
             }
 
-            oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2].toDouble()))
-
-            var lowPassFreq = -650f * orientation[1] + 21250f
-
-            if (lowPassFreq < 5000) {
-                lowPassFreq = 5000f
-            } else if (lowPassFreq > 18000) {
-                lowPassFreq = 18000f
-            }
+            oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
+            filterFrequencyPort.set(mapDegreesToFilterFrequency(orientation[1]))
         }
     }
 
-    private fun mapDegreesToOscillatorFrequency(degrees: Double): Double {
+    private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
         val notes = doubleArrayOf(
             440.0,
             523.251130601,
@@ -105,12 +99,12 @@ class RotationListener(private val windowManager: WindowManager,
         return notes[noteIndex]
     }
 
-    private fun mapDegreesToFilterFrequency(degrees: Double): Double {
-        val minDegree = 0.0
-        val maxDegree = 30.0
+    private fun mapDegreesToFilterFrequency(degrees: Float): Double {
+        val minDegree = -10.0
+        val maxDegree = 60.0
 
-        val minF = 5000.0
-        val maxF = 20000.0
+        val minF = 100.0
+        val maxF = 18000.0
 
         val a = (maxF - minF) / (maxDegree - minDegree)
         val b = maxF + a * minDegree
