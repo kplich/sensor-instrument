@@ -4,6 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.widget.Switch
+import com.example.sensorinstrument.mainActivity.SynthesizerManager
 
 class ProximityListener(private val switch: Switch): SensorEventListener {
     companion object {

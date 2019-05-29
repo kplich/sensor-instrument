@@ -6,9 +6,11 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
 import android.view.WindowManager
+import com.example.sensorinstrument.mainActivity.SynthesizerManager
 
 class RotationListener(private val windowManager: WindowManager,
-                       private val interactionManager: InteractionManager): SensorEventListener {
+                       private val synthesizerManager: SynthesizerManager
+): SensorEventListener {
 
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -60,7 +62,7 @@ class RotationListener(private val windowManager: WindowManager,
                 orientation[i] = Math.toDegrees(orientation[i].toDouble()).toFloat()
             }
 
-            interactionManager.interact(orientation)
+            synthesizerManager.interact(orientation)
         }
     }
 }

@@ -6,22 +6,21 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Switch
 import com.example.sensorinstrument.R
 import com.example.sensorinstrument.instruments.SineSynthesizer
-import com.example.sensorinstrument.sensorListeners.InteractionManager
 import com.example.sensorinstrument.sensorListeners.ProximityListener
 import com.example.sensorinstrument.sensorListeners.RotationListener
+import com.jsyn.unitgen.Circuit
 
 class MainActivity: AppCompatActivity() {
 
-    private var synthIsActive = true
-
-    private val synth: SineSynthesizer = SineSynthesizer()
-    private lateinit var interactionManager: InteractionManager
+    private val synth: Circuit = SineSynthesizer()
+    private lateinit var synthesizerManager: SynthesizerManager
     private lateinit var sensorManager: SensorManager
 
     private lateinit var rotationVectorSensor: Sensor
@@ -39,51 +38,45 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        interactionManager = InteractionManager(
-            synth.getOscillatorFrequencyPort(),
-            synth.getFilterFrequencyPort(),
-            findViewById<View>(R.id.mainLayout)
+        synthesizerManager = SynthesizerManager(
+            synth, findViewById<View>(R.id.mainLayout)
         )
 
         initializeSensors()
         registerSensors()
 
         //the whole layout is clickable and used to produce sound
-        findViewById<View>(R.id.mainLayout).setOnTouchListener(PlayingViewListener(synth))
+        findViewById<View>(R.id.mainLayout).setOnTouchListener(PlayingViewListener(synthesizerManager))
 
         //the switch is used to turn the synthesizer on and off
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener {
-            if(synthIsActive) {
-                synth.stop()
-            }
-            else {
-                synth.start()
-            }
-            synthIsActive = !synthIsActive
+            synthesizerManager.switchSynthState()
         }
+
+        Log.d("MainActivity", "onCreate: Switch checked? ${findViewById<Switch>(R.id.synthActive).isChecked}")
 
         configureNoteSpinner()
     }
 
     override fun onPause() {
         super.onPause()
-        synth.stop()
-
+        synthesizerManager.stopSynth()
         unregisterSensors()
     }
 
     override fun onResume() {
-        super.onResume()
-        synth.start()
+        Log.d("MainActivity", "onResume: Switch checked? ${findViewById<Switch>(R.id.synthActive).isChecked}")
 
+        super.onResume()
         registerSensors()
+        synthesizerManager.startSynth()
     }
 
     private fun initializeSensors() {
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         rotationVectorListener = RotationListener(
             windowManager,
-            interactionManager
+            synthesizerManager
         )
 
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
@@ -108,13 +101,11 @@ class MainActivity: AppCompatActivity() {
         noteAdapter = NoteSpinnerAdapter(this, Note.values())
         noteSpinner.adapter = noteAdapter
         noteSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val note: Note = parent?.getItemAtPosition(position) as Note
-                interactionManager.setMiddleNote(note)
+                synthesizerManager.setMiddleNote(note)
             }
 
         }

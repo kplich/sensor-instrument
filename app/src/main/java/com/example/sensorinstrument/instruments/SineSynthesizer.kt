@@ -2,10 +2,15 @@ package com.example.sensorinstrument.instruments
 
 import com.jsyn.JSyn
 import com.jsyn.Synthesizer
-import com.jsyn.ports.UnitInputPort
 import com.jsyn.unitgen.*
 
 class SineSynthesizer: Circuit() {
+    companion object {
+        const val OSCILLATOR_FREQUENCY = "oscillatorFrequency"
+        const val LP_FILTER_FREQUENCY = "lpFilterFrequency"
+        const val OUTPUT = "output"
+    }
+
     private val synth: Synthesizer = JSyn.createSynthesizer(JSynAndroidAudioDevice())
     private val oscillator: SineOscillator = SineOscillator()
     private val lpFilter: FilterLowPass = FilterLowPass()
@@ -16,6 +21,9 @@ class SineSynthesizer: Circuit() {
             add(oscillator)
             add(lpFilter)
             add(output)
+
+            addPort(oscillator.frequency, OSCILLATOR_FREQUENCY)
+            addPort(lpFilter.frequency, LP_FILTER_FREQUENCY)
         }
 
         oscillator.output.connect(lpFilter.input)
@@ -42,13 +50,5 @@ class SineSynthesizer: Circuit() {
 
     fun stopPlaying() {
         output.stop()
-    }
-
-    fun getOscillatorFrequencyPort(): UnitInputPort {
-        return oscillator.frequency
-    }
-
-    fun getFilterFrequencyPort(): UnitInputPort {
-        return lpFilter.frequency
     }
 }
