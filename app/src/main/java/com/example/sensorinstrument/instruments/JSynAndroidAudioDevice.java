@@ -33,8 +33,8 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager
 {
 
 	ArrayList<DeviceInfo> deviceRecords;
-	private double suggestedOutputLatency = 0.100;
-	private double suggestedInputLatency = 0.100;
+	private double suggestedOutputLatency = 0.003;
+	private double suggestedInputLatency = 0.003;
 	private int defaultInputDeviceID = -1;
 	private int defaultOutputDeviceID = -1;
 
@@ -113,10 +113,13 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager
 			bufferSize = (3 * (minBufferSize / 2)) & ~3;
 			System.out.println("Audio bufferSize = " + bufferSize);
 			audioTrack = new AudioTrack(
-					AudioManager.STREAM_MUSIC, frameRate,
+					AudioManager.STREAM_MUSIC,
+					frameRate,
 					AudioFormat.CHANNEL_OUT_STEREO,
-					AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+					AudioFormat.ENCODING_PCM_16BIT,
+					bufferSize,
 					AudioTrack.MODE_STREAM );
+			int mode = audioTrack.getPerformanceMode();
 			audioTrack.play();
 		}
 
@@ -247,13 +250,13 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager
 	@Override
 	public double getDefaultHighInputLatency( int deviceID )
 	{
-		return 0.300;
+		return 0.005;
 	}
 
 	@Override
 	public double getDefaultHighOutputLatency( int deviceID )
 	{
-		return 0.300;
+		return 0.005;
 	}
 
 	@Override
@@ -271,15 +274,14 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager
 	@Override
 	public double getDefaultLowInputLatency( int deviceID )
 	{
-		return 0.100;
+		return 0.005;
 	}
 
 	@Override
 	public double getDefaultLowOutputLatency( int deviceID )
 	{
-		return 0.100;
+		return 0.001;
 	}
-
 
 	@Override
 	public int getDeviceCount()

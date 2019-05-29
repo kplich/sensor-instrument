@@ -10,12 +10,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.Switch
 import com.example.sensorinstrument.instruments.SineSynthesizer
-import com.example.sensorinstrument.instruments.sensorListeners.ProximityListener
-import com.example.sensorinstrument.instruments.sensorListeners.RotationListener
+import com.example.sensorinstrument.sensorListeners.ProximityListener
+import com.example.sensorinstrument.sensorListeners.RotationListener
 
 class MainActivity: AppCompatActivity() {
 
     private var active = true
+
     private val synth: SineSynthesizer = SineSynthesizer()
     private lateinit var sensorManager: SensorManager
 
@@ -50,9 +51,7 @@ class MainActivity: AppCompatActivity() {
             SensorManager.SENSOR_DELAY_UI)
 
         findViewById<Button>(R.id.playingButton)!!.setOnTouchListener(
-            PlayingButtonListener(
-                synth
-            )
+            PlayingButtonListener(synth)
         )
 
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener { view: View? ->

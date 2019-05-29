@@ -1,4 +1,4 @@
-package com.example.sensorinstrument.instruments.sensorListeners
+package com.example.sensorinstrument.sensorListeners
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent

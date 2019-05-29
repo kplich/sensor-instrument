@@ -1,4 +1,4 @@
-package com.example.sensorinstrument.instruments.sensorListeners
+package com.example.sensorinstrument.sensorListeners
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -11,6 +11,11 @@ import com.jsyn.ports.UnitInputPort
 class RotationListener(private val windowManager: WindowManager,
                        private val oscFrequencyPort: UnitInputPort,
                        private val filterFrequencyPort: UnitInputPort): SensorEventListener {
+
+    companion object {
+        const val A3 = 220.0
+        const val
+    }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -67,21 +72,15 @@ class RotationListener(private val windowManager: WindowManager,
     }
 
     private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
-        val notes = doubleArrayOf(
-            440.0,
-            523.251130601,
-            587.329535835,
-            659.255113826,
-            783.990871963,
-            880.0,
-            1046.5022612,
-            1174.65907167,
-            1318.51022765,
-            1567.98174393,
-            1760.0
-        )
+        val notes = List(24) {note -> 138.5913 * Math.pow(2.0, (note.toDouble()/12))}
+
         val numberOfNotes = notes.size
-        val degreesForNote = 25
+        val degreesForNote = 15
+
+        if(numberOfNotes * degreesForNote > 360) {
+            throw IllegalArgumentException("Too many ($numberOfNotes) or too wide ($degreesForNote) notes!")
+        }
+
         val degreesForHalfRange: Double = if(numberOfNotes % 2 == 0) {
             (numberOfNotes / 2) * degreesForNote
         }
