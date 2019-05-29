@@ -1,6 +1,7 @@
 package com.example.sensorinstrument.mainActivity
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,11 @@ class NoteSpinnerAdapter(applicationContext: Context,
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
         val newView: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.note_spinner_row, parent, false)
 
-        newView.findViewById<TextView>(R.id.noteName).text = getItem(position)?.noteName
+        val note = getItem(position)!!
+        newView.findViewById<TextView>(R.id.noteName).apply {
+            text = note.noteName
+            background = ColorDrawable(note.color)
+        }
 
         return newView
     }

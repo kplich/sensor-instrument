@@ -1,6 +1,7 @@
 package com.example.sensorinstrument.mainActivity
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
@@ -32,22 +33,30 @@ class MainActivity: AppCompatActivity() {
     private lateinit var noteSpinner: Spinner
     private lateinit var noteAdapter: NoteSpinnerAdapter
 
+    private lateinit var playingButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
+        playingButton = findViewById(R.id.playingButton)
+
+        //add rotation vector sensor
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         rotationVectorListener = RotationListener(
             windowManager,
             synth.getOscillatorFrequencyPort(),
-            synth.getFilterFrequencyPort()
+            synth.getFilterFrequencyPort(),
+            Note.E4,
+            playingButton
         )
         sensorManager.registerListener(
             rotationVectorListener,
             rotationVectorSensor,
             SensorManager.SENSOR_DELAY_FASTEST)
 
+        //add proximity sensor
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
         proximitySensorListener =
             ProximityListener(findViewById(R.id.synthActive))
@@ -56,7 +65,7 @@ class MainActivity: AppCompatActivity() {
             proximitySensor,
             SensorManager.SENSOR_DELAY_UI)
 
-        findViewById<Button>(R.id.playingButton)!!.setOnTouchListener(PlayingButtonListener(synth))
+        playingButton.setOnTouchListener(PlayingButtonListener(synth))
 
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener { view: View? ->
             if(active) {
@@ -79,6 +88,7 @@ class MainActivity: AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val note: Note = parent?.getItemAtPosition(position) as Note
                 (rotationVectorListener as RotationListener).setMiddleNote(note)
+                playingButton.background = ColorDrawable(note.color)
             }
 
         }
