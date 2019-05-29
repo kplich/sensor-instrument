@@ -19,8 +19,10 @@ class RotationListener(private val windowManager: WindowManager,
                        private val coloredView: View
 ): SensorEventListener {
 
-    private val minDegreeBackward = -15.0
-    private val maxDegreeForward = 30.0
+    private val minDegreeBackward = -20.0
+    private val maxDegreeForward = 20.0
+
+    private val minColorValue = 95.0
 
     private var pentatonicFrequencies: List<Double> = middleNote.getPentatonicFrequencies()
 
@@ -106,8 +108,8 @@ class RotationListener(private val windowManager: WindowManager,
     }
 
     private fun mapDegreesToFilterFrequency(degrees: Float): Double {
-        val minF = 100.0
-        val maxF = 18000.0
+        val minF = 500.0
+        val maxF = 20000.0
 
         return transformValueBetweenRanges(degrees.toDouble(), minDegreeBackward, maxDegreeForward, maxF, minF)
     }
@@ -131,19 +133,19 @@ class RotationListener(private val windowManager: WindowManager,
         if(mainR != 0) {
             newR = transformValueBetweenRanges(degrees.toDouble(),
                 minDegreeBackward, maxDegreeForward,
-                mainR.toDouble(), 0.0).toInt()
+                mainR.toDouble(), minColorValue).toInt()
         }
 
         if(mainG != 0) {
             newG = transformValueBetweenRanges(degrees.toDouble(),
                 minDegreeBackward, maxDegreeForward,
-                mainG.toDouble(), 0.0).toInt()
+                mainG.toDouble(), minColorValue).toInt()
         }
 
         if(mainB != 0) {
             newB = transformValueBetweenRanges(degrees.toDouble(),
                 minDegreeBackward, maxDegreeForward,
-                mainB.toDouble(), 0.0).toInt()
+                mainB.toDouble(), minColorValue).toInt()
         }
 
         return Color.rgb(newR, newG, newB)

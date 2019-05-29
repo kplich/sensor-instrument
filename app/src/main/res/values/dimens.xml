@@ -3,4 +3,5 @@
     <dimen name="noteNameSize">28sp</dimen>
     <dimen name="defaultMargin">8dp</dimen>
     <dimen name="defaultSmallMargin">4dp</dimen>
+    <dimen name="defaultSmallerMargin">1dp</dimen>
 </resources>
