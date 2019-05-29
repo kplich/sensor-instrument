@@ -4,7 +4,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.example.sensorinstrument.instruments.SineSynthesizer
 
-class PlayingButtonListener(private val synth: SineSynthesizer): View.OnTouchListener {
+class PlayingViewListener(private val synth: SineSynthesizer): View.OnTouchListener {
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         if (event!!.action == MotionEvent.ACTION_UP) {

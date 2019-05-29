@@ -1,35 +1,20 @@
 package com.example.sensorinstrument.sensorListeners
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
-import android.view.View
 import android.view.WindowManager
-import com.example.sensorinstrument.mainActivity.Note
-import com.jsyn.ports.UnitInputPort
 
 class RotationListener(private val windowManager: WindowManager,
-                       private val oscFrequencyPort: UnitInputPort,
-                       private val filterFrequencyPort: UnitInputPort,
-                       private var middleNote: Note = Note.E5,
-                       private val coloredView: View
-): SensorEventListener {
+                       private val interactionManager: InteractionManager): SensorEventListener {
 
-    private val minDegreeBackward = -20.0
-    private val maxDegreeForward = 20.0
-
-    private val minColorValue = 95.0
-
-    private var pentatonicFrequencies: List<Double> = middleNote.getPentatonicFrequencies()
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if(event!!.sensor.type == Sensor.TYPE_ROTATION_VECTOR) {
+        if (event!!.sensor.type == Sensor.TYPE_ROTATION_VECTOR) {
             val rotationMatrix = FloatArray(9)
             SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values)
 
@@ -75,97 +60,7 @@ class RotationListener(private val windowManager: WindowManager,
                 orientation[i] = Math.toDegrees(orientation[i].toDouble()).toFloat()
             }
 
-            oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
-            filterFrequencyPort.set(mapDegreesToFilterFrequency(orientation[1]))
-            coloredView.background = ColorDrawable(mapDegreesToButtonColor(orientation[1]))
-        }
-    }
-
-    private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
-
-        val numberOfNotes = pentatonicFrequencies.size
-        val degreesForNote = 30
-
-        if(numberOfNotes * degreesForNote > 360) {
-            throw IllegalArgumentException("Too many ($numberOfNotes) or too wide ($degreesForNote) notes!")
-        }
-
-        val degreesForHalfRange: Double =   if(numberOfNotes % 2 == 0) {
-                                                (numberOfNotes / 2) * degreesForNote
-                                            }
-                                            else {
-                                                ((numberOfNotes / 2) * degreesForNote) + degreesForNote / 2
-                                            }.toDouble()
-
-        var noteIndex = (degrees + degreesForHalfRange).toInt() / degreesForNote
-        if (noteIndex < 0) {
-            noteIndex = 0
-        } else if (noteIndex > numberOfNotes-1) {
-            noteIndex = numberOfNotes-1
-        }
-
-        return pentatonicFrequencies[noteIndex]
-    }
-
-    private fun mapDegreesToFilterFrequency(degrees: Float): Double {
-        val minF = 500.0
-        val maxF = 20000.0
-
-        return transformValueBetweenRanges(degrees.toDouble(), minDegreeBackward, maxDegreeForward, maxF, minF)
-    }
-
-    fun setMiddleNote(newNote: Note) {
-        middleNote = newNote
-        pentatonicFrequencies = middleNote.getPentatonicFrequencies()
-    }
-
-    private fun mapDegreesToButtonColor(degrees: Float): Int {
-        val mainColor = middleNote.color
-
-        val mainR = Color.red(mainColor)
-        val mainG = Color.green(mainColor)
-        val mainB = Color.blue(mainColor)
-
-        var newR = 0
-        var newG = 0
-        var newB = 0
-
-        if(mainR != 0) {
-            newR = transformValueBetweenRanges(degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainR.toDouble(), minColorValue).toInt()
-        }
-
-        if(mainG != 0) {
-            newG = transformValueBetweenRanges(degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainG.toDouble(), minColorValue).toInt()
-        }
-
-        if(mainB != 0) {
-            newB = transformValueBetweenRanges(degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainB.toDouble(), minColorValue).toInt()
-        }
-
-        return Color.rgb(newR, newG, newB)
-    }
-
-    private fun transformValueBetweenRanges(value: Double,
-                                    inputMin: Double, inputMax: Double,
-                                    outputForMin: Double, outputForMax: Double): Double {
-        return when {
-            value <= inputMin -> outputForMin
-            value >= inputMax -> outputForMax
-            else -> {
-                val dY = outputForMax - outputForMin
-                val dX = inputMax - inputMin
-                val a = dY/dX
-
-                val b = outputForMin - a * inputMin
-
-                a * value + b
-            }
+            interactionManager.interact(orientation)
         }
     }
 }

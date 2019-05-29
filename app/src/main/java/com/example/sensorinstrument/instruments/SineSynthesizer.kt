@@ -7,7 +7,6 @@ import com.jsyn.unitgen.*
 
 class SineSynthesizer: Circuit() {
     private val synth: Synthesizer = JSyn.createSynthesizer(JSynAndroidAudioDevice())
-    private val smoother: LinearRamp = LinearRamp()
     private val oscillator: SineOscillator = SineOscillator()
     private val lpFilter: FilterLowPass = FilterLowPass()
     private val output: LineOut = LineOut()
@@ -15,13 +14,9 @@ class SineSynthesizer: Circuit() {
     init {
         synth.apply {
             add(oscillator)
-            //add(smoother)
             add(lpFilter)
             add(output)
         }
-
-        //smoother.output.connect(oscillator.amplitude)
-        //smoother.time.set(0.1)
 
         oscillator.output.connect(lpFilter.input)
 
@@ -34,7 +29,6 @@ class SineSynthesizer: Circuit() {
 
     override fun start() {
         synth.start()
-        //output.start()
     }
 
     override fun stop() {
