@@ -17,11 +17,11 @@ enum class Note(private val noteName: String, private val frequency: Double) {
 
     fun getPentatonicFrequencies(): List<Double> {
         return pentatonicDegrees.map { degree ->
-            frequency * Math.pow(2.toDouble(), degree.toDouble())
+            frequency * Math.pow(2.toDouble(), degree.toDouble() / 12)
         }
     }
 
     companion object {
-        val pentatonicDegrees = intArrayOf(-12, -9, -7, -5, -3, 0, 3, 5, 7, 9, 12)
+        val pentatonicDegrees = intArrayOf(-12, -10, -7, -5, -3, 0, 3, 5, 7, 10, 12)
     }
 }

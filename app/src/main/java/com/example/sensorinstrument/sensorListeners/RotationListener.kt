@@ -6,16 +6,15 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
 import android.view.WindowManager
+import com.example.sensorinstrument.Note
 import com.jsyn.ports.UnitInputPort
 
 class RotationListener(private val windowManager: WindowManager,
                        private val oscFrequencyPort: UnitInputPort,
-                       private val filterFrequencyPort: UnitInputPort): SensorEventListener {
+                       private val filterFrequencyPort: UnitInputPort,
+                       private var middleNote: Note = Note.E4): SensorEventListener {
 
-    companion object {
-        const val A3 = 220.0
-        const val
-    }
+    private var pentatonicFrequencies: List<Double> = middleNote.getPentatonicFrequencies()
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -72,10 +71,9 @@ class RotationListener(private val windowManager: WindowManager,
     }
 
     private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
-        val notes = List(24) {note -> 138.5913 * Math.pow(2.0, (note.toDouble()/12))}
 
-        val numberOfNotes = notes.size
-        val degreesForNote = 15
+        val numberOfNotes = pentatonicFrequencies.size
+        val degreesForNote = 30
 
         if(numberOfNotes * degreesForNote > 360) {
             throw IllegalArgumentException("Too many ($numberOfNotes) or too wide ($degreesForNote) notes!")
@@ -95,12 +93,12 @@ class RotationListener(private val windowManager: WindowManager,
             noteIndex = numberOfNotes-1
         }
 
-        return notes[noteIndex]
+        return pentatonicFrequencies[noteIndex]
     }
 
     private fun mapDegreesToFilterFrequency(degrees: Float): Double {
-        val minDegree = -10.0
-        val maxDegree = 60.0
+        val minDegree = -15.0
+        val maxDegree = 45.0
 
         val minF = 100.0
         val maxF = 18000.0
