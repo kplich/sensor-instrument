@@ -53,7 +53,7 @@ class MainActivity: AppCompatActivity() {
             windowManager,
             synth.getOscillatorFrequencyPort(),
             synth.getFilterFrequencyPort(),
-            Note.E4,
+            Note.E5,
             wholeLayout
         )
         sensorManager.registerListener(

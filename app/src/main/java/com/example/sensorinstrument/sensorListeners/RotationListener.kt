@@ -15,7 +15,7 @@ import com.jsyn.ports.UnitInputPort
 class RotationListener(private val windowManager: WindowManager,
                        private val oscFrequencyPort: UnitInputPort,
                        private val filterFrequencyPort: UnitInputPort,
-                       private var middleNote: Note = Note.E4,
+                       private var middleNote: Note = Note.E5,
                        private val coloredView: View
 ): SensorEventListener {
 
