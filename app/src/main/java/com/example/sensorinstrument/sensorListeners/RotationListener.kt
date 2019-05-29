@@ -6,7 +6,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
 import android.view.WindowManager
-import com.example.sensorinstrument.Note
+import com.example.sensorinstrument.mainActivity.Note
 import com.jsyn.ports.UnitInputPort
 
 class RotationListener(private val windowManager: WindowManager,
@@ -115,5 +115,10 @@ class RotationListener(private val windowManager: WindowManager,
         }
 
         return lowPassFreq
+    }
+
+    fun setMiddleNote(newNote: Note) {
+        middleNote = newNote
+        pentatonicFrequencies = middleNote.getPentatonicFrequencies()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.sensorinstrument
+package com.example.sensorinstrument.mainActivity
 
 import android.view.MotionEvent
 import android.view.View

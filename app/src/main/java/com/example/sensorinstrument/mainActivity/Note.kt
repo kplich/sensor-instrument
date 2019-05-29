@@ -1,6 +1,6 @@
-package com.example.sensorinstrument
+package com.example.sensorinstrument.mainActivity
 
-enum class Note(private val noteName: String, private val frequency: Double) {
+enum class Note(val noteName: String, val frequency: Double) {
       A3("A3",220.0),
     Ash3("A#3", 233.0819),
       B3("B3",246.9417),
