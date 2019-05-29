@@ -7,8 +7,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
+import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import com.example.sensorinstrument.mainActivity.Note
 import com.jsyn.ports.UnitInputPort
 
@@ -16,7 +16,7 @@ class RotationListener(private val windowManager: WindowManager,
                        private val oscFrequencyPort: UnitInputPort,
                        private val filterFrequencyPort: UnitInputPort,
                        private var middleNote: Note = Note.E4,
-                       private val playingButton: Button
+                       private val coloredView: View
 ): SensorEventListener {
 
     private val minDegreeBackward = -15.0
@@ -75,7 +75,7 @@ class RotationListener(private val windowManager: WindowManager,
 
             oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
             filterFrequencyPort.set(mapDegreesToFilterFrequency(orientation[1]))
-            playingButton.background = ColorDrawable(mapDegreesToButtonColor(orientation[1]))
+            coloredView.background = ColorDrawable(mapDegreesToButtonColor(orientation[1]))
         }
     }
 
@@ -88,12 +88,12 @@ class RotationListener(private val windowManager: WindowManager,
             throw IllegalArgumentException("Too many ($numberOfNotes) or too wide ($degreesForNote) notes!")
         }
 
-        val degreesForHalfRange: Double = if(numberOfNotes % 2 == 0) {
-            (numberOfNotes / 2) * degreesForNote
-        }
-        else {
-            ((numberOfNotes / 2) * degreesForNote) + degreesForNote / 2
-        }.toDouble()
+        val degreesForHalfRange: Double =   if(numberOfNotes % 2 == 0) {
+                                                (numberOfNotes / 2) * degreesForNote
+                                            }
+                                            else {
+                                                ((numberOfNotes / 2) * degreesForNote) + degreesForNote / 2
+                                            }.toDouble()
 
         var noteIndex = (degrees + degreesForHalfRange).toInt() / degreesForNote
         if (noteIndex < 0) {
@@ -145,8 +145,6 @@ class RotationListener(private val windowManager: WindowManager,
                 minDegreeBackward, maxDegreeForward,
                 mainB.toDouble(), 0.0).toInt()
         }
-
-        println("mapping $degrees degrees to color: r=$newR, g=$newG, b=$newB")
 
         return Color.rgb(newR, newG, newB)
     }

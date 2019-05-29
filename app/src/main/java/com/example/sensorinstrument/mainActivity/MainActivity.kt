@@ -8,10 +8,12 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Switch
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.sensorinstrument.R
 import com.example.sensorinstrument.instruments.SineSynthesizer
 import com.example.sensorinstrument.sensorListeners.ProximityListener
@@ -33,14 +35,17 @@ class MainActivity: AppCompatActivity() {
     private lateinit var noteSpinner: Spinner
     private lateinit var noteAdapter: NoteSpinnerAdapter
 
-    private lateinit var playingButton: Button
+    //private lateinit var playingButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        playingButton = findViewById(R.id.playingButton)
+        val wholeLayout: ConstraintLayout = findViewById(R.id.mainLayout)
+
+        //playingButton = findViewById(R.id.playingButton)
 
         //add rotation vector sensor
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
@@ -49,7 +54,7 @@ class MainActivity: AppCompatActivity() {
             synth.getOscillatorFrequencyPort(),
             synth.getFilterFrequencyPort(),
             Note.E4,
-            playingButton
+            wholeLayout
         )
         sensorManager.registerListener(
             rotationVectorListener,
@@ -65,7 +70,8 @@ class MainActivity: AppCompatActivity() {
             proximitySensor,
             SensorManager.SENSOR_DELAY_UI)
 
-        playingButton.setOnTouchListener(PlayingButtonListener(synth))
+        //playingButton.setOnTouchListener(PlayingButtonListener(synth))
+        wholeLayout.setOnTouchListener(PlayingButtonListener(synth))
 
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener { view: View? ->
             if(active) {
@@ -88,7 +94,6 @@ class MainActivity: AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val note: Note = parent?.getItemAtPosition(position) as Note
                 (rotationVectorListener as RotationListener).setMiddleNote(note)
-                playingButton.background = ColorDrawable(note.color)
             }
 
         }
@@ -106,4 +111,5 @@ class MainActivity: AppCompatActivity() {
         super.onResume()
         synth.start()
     }
+
 }

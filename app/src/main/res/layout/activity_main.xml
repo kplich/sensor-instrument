@@ -5,31 +5,43 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context=".mainActivity.MainActivity"
-                                                   android:backgroundTint="@color/colorPrimary">
-    <Button
-            android:layout_width="0dp"
-            android:layout_height="0dp" android:id="@+id/playingButton" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"/>
+                                                   android:padding="0dp"
+                                                   android:id="@+id/mainLayout">
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline"
-            app:layout_constraintGuide_percent="0.05"/>
-    <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/synthActive" app:layout_constraintTop_toTopOf="parent"
-            android:checked="true"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"/>
-    <Spinner
+            app:layout_constraintGuide_percent="0.1"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/noteSpinner" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/synthActive"
-            android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
-            android:spinnerMode="dialog"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:backgroundTintMode="add"
+            android:background="@color/opaque" android:layout_marginEnd="@dimen/defaultMargin"
+            android:layout_marginTop="@dimen/defaultMargin" android:layout_marginBottom="@dimen/defaultMargin">
+
+        <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/noteSpinner"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/synthActive"
+                android:layout_marginStart="@dimen/defaultMargin" android:textAlignment="center"
+                android:dropDownWidth="match_parent" android:popupBackground="@color/transparent"/>
+        <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/synthActive"
+                android:checked="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
