@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Switch
+import android.widget.TextView
 import com.example.sensorinstrument.R
 import com.example.sensorinstrument.instruments.SineSynthesizer
 import com.example.sensorinstrument.sensorListeners.ProximityListener
@@ -42,20 +43,20 @@ class MainActivity: AppCompatActivity() {
             synth, findViewById<View>(R.id.mainLayout)
         )
 
-        initializeSensors()
-        registerSensors()
-
         //the whole layout is clickable and used to produce sound
         findViewById<View>(R.id.mainLayout).setOnTouchListener(PlayingViewListener(synthesizerManager))
 
         //the switch is used to turn the synthesizer on and off
         findViewById<Switch>(R.id.synthActive)!!.setOnClickListener {
             synthesizerManager.switchSynthState()
+            findViewById<TextView>(R.id.synthOffDescription).visibility =
+                if(synthesizerManager.isEnabled()) View.INVISIBLE else View.VISIBLE
         }
 
-        Log.d("MainActivity", "onCreate: Switch checked? ${findViewById<Switch>(R.id.synthActive).isChecked}")
-
         configureNoteSpinner()
+
+        initializeSensors()
+        registerSensors()
     }
 
     override fun onPause() {
@@ -65,8 +66,6 @@ class MainActivity: AppCompatActivity() {
     }
 
     override fun onResume() {
-        Log.d("MainActivity", "onResume: Switch checked? ${findViewById<Switch>(R.id.synthActive).isChecked}")
-
         super.onResume()
         registerSensors()
         synthesizerManager.startSynth()

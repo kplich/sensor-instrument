@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SensorInstrument</string>
+    <string name="synthOffDescriptionText">Hover over the phone to turn on.\n
+        Hold vertically, tilt left and right to play.\n
+        Tilt forward and backward to apply filter.\n
+        Have fun playing!
+    </string>
 </resources>

@@ -12,6 +12,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline"
             app:layout_constraintGuide_percent="0.1"/>
+    <TextView
+            android:text="@string/synthOffDescriptionText"
+            android:layout_width="0dp"
+            android:layout_height="0dp" android:id="@+id/synthOffDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:textAlignment="gravity"
+            android:gravity="center" android:textColor="@color/colorAccent" android:textStyle="italic"
+            android:typeface="sans"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -22,7 +32,8 @@
             android:layout_marginStart="@dimen/defaultMargin"
             android:backgroundTintMode="add"
             android:background="@color/opaque" android:layout_marginEnd="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/defaultMargin" android:layout_marginBottom="@dimen/defaultMargin">
+            android:layout_marginTop="@dimen/defaultMargin" android:layout_marginBottom="@dimen/defaultMargin"
+            android:id="@+id/constraintLayout">
 
         <Spinner
                 android:layout_width="0dp"
@@ -36,7 +47,7 @@
                 android:layout_marginStart="@dimen/defaultMargin"
                 android:textAlignment="center"
                 android:dropDownWidth="match_parent"
-                android:popupBackground="@color/transparent"/>
+                android:popupBackground="@color/transparent" android:layout_marginEnd="@dimen/defaultMargin"/>
         <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +55,6 @@
                 android:checked="false"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="@dimen/defaultMargin"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

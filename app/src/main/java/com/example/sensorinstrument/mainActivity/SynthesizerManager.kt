@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import com.example.sensorinstrument.instruments.SineSynthesizer
-import com.example.sensorinstrument.mainActivity.Note
 import com.jsyn.ports.UnitInputPort
 import com.jsyn.unitgen.Circuit
 
@@ -15,10 +14,10 @@ class SynthesizerManager(private val synthesizer: Circuit,
     private val oscFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.OSCILLATOR_FREQUENCY)) as UnitInputPort
     private val filterFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.LP_FILTER_FREQUENCY)) as UnitInputPort
 
-    private val minDegreeBackward = -20.0
-    private val maxDegreeForward = 20.0
+    private val minDegreeBackward = -25.0
+    private val maxDegreeForward = 15.0
 
-    private val minColorValue = 95.0
+    private val minColorValue = 63.0
 
     private var pentatonicFrequencies: List<Double> = middleNote.getPentatonicFrequencies()
 
