@@ -7,9 +7,10 @@ import com.example.sensorinstrument.instruments.SineSynthesizer
 import com.jsyn.ports.UnitInputPort
 import com.jsyn.unitgen.Circuit
 
-class SynthesizerManager(private val synthesizer: Circuit,
-                         private val coloredView: View,
-                         private var middleNote: Note = Note.E5) {
+class SynthesizerManager(private val coloredView: View,
+                         private var middleNote: Note) {
+
+    private val synthesizer: Circuit = SineSynthesizer()
 
     private val oscFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.OSCILLATOR_FREQUENCY)) as UnitInputPort
     private val filterFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.LP_FILTER_FREQUENCY)) as UnitInputPort

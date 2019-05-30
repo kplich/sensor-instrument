@@ -6,21 +6,16 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import com.example.sensorinstrument.R
-import com.example.sensorinstrument.instruments.SineSynthesizer
 import com.example.sensorinstrument.sensorListeners.ProximityListener
 import com.example.sensorinstrument.sensorListeners.RotationListener
-import com.jsyn.unitgen.Circuit
 
 class MainActivity: AppCompatActivity() {
-
-    private val synth: Circuit = SineSynthesizer()
     private lateinit var synthesizerManager: SynthesizerManager
     private lateinit var sensorManager: SensorManager
 
@@ -39,9 +34,7 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        synthesizerManager = SynthesizerManager(
-            synth, findViewById<View>(R.id.mainLayout)
-        )
+        synthesizerManager = SynthesizerManager(findViewById<View>(R.id.mainLayout), Note.E5)
 
         //the whole layout is clickable and used to produce sound
         findViewById<View>(R.id.mainLayout).setOnTouchListener(PlayingViewListener(synthesizerManager))

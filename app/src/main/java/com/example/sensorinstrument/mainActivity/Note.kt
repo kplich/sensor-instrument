@@ -3,9 +3,9 @@ package com.example.sensorinstrument.mainActivity
 import android.graphics.Color
 
 enum class Note(val noteName: String, val frequency: Double, val color: Int) {
-      A3( "A4",  220.0000 * 2,    Color.parseColor("#ff0000")),
-    Ash3("A#4", 233.0819 * 2, Color.parseColor("#ff7f00")),
-      B3( "B4",  246.9417 * 2, Color.parseColor("#ffff00")),
+      A4( "A4",  220.0000 * 2,    Color.parseColor("#ff0000")),
+    Ash4("A#4", 233.0819 * 2, Color.parseColor("#ff7f00")),
+      B4( "B4",  246.9417 * 2, Color.parseColor("#ffff00")),
       C5( "C5",  261.6256 * 2, Color.parseColor("#7fff00")),
     Csh5("C#5", 277.1826 * 2, Color.parseColor("#00ff00")),
       D5( "D5",  293.6648 * 2, Color.parseColor("#00ff7f")),
