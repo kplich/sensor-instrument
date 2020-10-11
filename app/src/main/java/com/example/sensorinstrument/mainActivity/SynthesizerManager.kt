@@ -12,7 +12,8 @@ class SynthesizerManager(private val coloredView: View,
 
     private val synthesizer: Circuit = SineSynthesizer()
 
-    private val oscFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.OSCILLATOR_FREQUENCY)) as UnitInputPort
+    private val sineOscFreqPort = (synthesizer.getPortByName(SineSynthesizer.SINE_OSCILLATOR_FREQUENCY)) as UnitInputPort
+    private val sawOscFreqPort = (synthesizer.getPortByName(SineSynthesizer.SAWTOOTH_OSCILLATOR_FREQUENCY)) as UnitInputPort
     private val filterFrequencyPort = (synthesizer.getPortByName(SineSynthesizer.LP_FILTER_FREQUENCY)) as UnitInputPort
 
     private val minDegreeBackward = -25.0
@@ -117,7 +118,8 @@ class SynthesizerManager(private val coloredView: View,
     }
 
     fun interact(orientation: FloatArray) {
-        oscFrequencyPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
+        sineOscFreqPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
+        sawOscFreqPort.set(mapDegreesToOscillatorFrequency(orientation[2]))
         filterFrequencyPort.set(mapDegreesToFilterFrequency(orientation[1]))
         coloredView.background = ColorDrawable(mapDegreesToViewColor(orientation[1]))
     }
@@ -133,7 +135,7 @@ class SynthesizerManager(private val coloredView: View,
 
     fun startSynth() {
         synthesizer.start()
-        synthesizer.isEnabled = false
+        synthesizer.isEnabled = true
     }
 
     fun stopSynth() {

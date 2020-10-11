@@ -6,27 +6,32 @@ import com.jsyn.unitgen.*
 
 class SineSynthesizer: Circuit() {
     companion object {
-        const val OSCILLATOR_FREQUENCY = "oscillatorFrequency"
+        const val SINE_OSCILLATOR_FREQUENCY = "sineOscillatorFrequency"
+        const val SAWTOOTH_OSCILLATOR_FREQUENCY = "sawtoothOscillatorFrequency"
         const val LP_FILTER_FREQUENCY = "lpFilterFrequency"
         const val OUTPUT = "output"
     }
 
     private val synth: Synthesizer = JSyn.createSynthesizer(JSynAndroidAudioDevice())
-    private val oscillator: SineOscillator = SineOscillator()
+    private val sineOscillator: SineOscillator = SineOscillator()
+    private val sawtoothOscillator = SawtoothOscillator()
     private val lpFilter: FilterLowPass = FilterLowPass()
     private val output: LineOut = LineOut()
 
     init {
         synth.apply {
-            add(oscillator)
+            add(sineOscillator)
+            add(sawtoothOscillator)
             add(lpFilter)
             add(output)
 
-            addPort(oscillator.frequency, OSCILLATOR_FREQUENCY)
+            addPort(sawtoothOscillator.frequency, SAWTOOTH_OSCILLATOR_FREQUENCY)
+            addPort(sineOscillator.frequency, SINE_OSCILLATOR_FREQUENCY)
             addPort(lpFilter.frequency, LP_FILTER_FREQUENCY)
         }
 
-        oscillator.output.connect(lpFilter.input)
+        sineOscillator.output.connect(lpFilter.input)
+        sawtoothOscillator.output.connect(lpFilter.input)
 
         lpFilter.output.connect(0, output.input, 0)
         lpFilter.output.connect(0, output.input, 1)
