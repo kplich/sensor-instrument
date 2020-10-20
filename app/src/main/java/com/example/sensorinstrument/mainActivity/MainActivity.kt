@@ -6,17 +6,14 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.Switch
-import android.widget.TextView
 import com.example.sensorinstrument.R
-import com.example.sensorinstrument.sensorListeners.ProximityListener
+import com.example.sensorinstrument.databinding.ActivityMainBinding
 import com.example.sensorinstrument.sensorListeners.RotationListener
 
 class MainActivity: AppCompatActivity() {
-    private lateinit var synthesizerManager: SynthesizerManager
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var synthesizerWrapper: SynthesizerWrapper
     private lateinit var sensorManager: SensorManager
 
     private lateinit var rotationVectorSensor: Sensor
@@ -24,38 +21,41 @@ class MainActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.rootLayout)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        synthesizerManager = SynthesizerManager(findViewById<View>(R.id.mainLayout), Note.E5)
+        synthesizerWrapper = SynthesizerWrapper(Note.E5)
 
         //the whole layout is clickable and used to produce sound
-        findViewById<View>(R.id.mainLayout).setOnTouchListener(PlayingViewListener(synthesizerManager))
+        binding.rootLayout.setOnTouchListener(PlayingViewListener(synthesizerWrapper))
+
+        binding.osc1Type.check(R.id.osc_1_type_sine)
 
         initializeSensors()
         registerSensors()
 
-        synthesizerManager.startSynth()
+        synthesizerWrapper.startSynth()
     }
 
     override fun onPause() {
         super.onPause()
-        synthesizerManager.stopSynth()
+        synthesizerWrapper.stopSynth()
         unregisterSensors()
     }
 
     override fun onResume() {
         super.onResume()
         registerSensors()
-        synthesizerManager.startSynth()
+        synthesizerWrapper.startSynth()
     }
 
     private fun initializeSensors() {
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         rotationVectorListener = RotationListener(
             windowManager,
-            synthesizerManager
+            binding.rootLayout
         )
     }
 
