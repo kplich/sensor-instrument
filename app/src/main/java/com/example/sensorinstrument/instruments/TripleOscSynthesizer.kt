@@ -1,75 +1,85 @@
 package com.example.sensorinstrument.instruments
 
-import com.jsyn.ports.UnitInputPort
-import com.jsyn.ports.UnitOutputPort
-import com.jsyn.unitgen.*
-import com.softsynth.shared.time.TimeStamp
+import com.jsyn.JSyn
+import com.jsyn.unitgen.EnvelopeDAHDSR
+import com.jsyn.unitgen.LineOut
+import com.jsyn.unitgen.MorphingOscillatorBL
 
-class TripleOscSynthesizer: Circuit(), UnitVoice {
+class TripleOscSynthesizer {
 
-    private var frequencyPassThrough = PassThrough()
-    private var osc1: UnitOscillator = SineOscillator()
-    //private var osc2: StupidSynthesizer = StupidSynthesizer(OscillatorType.SINE)
-    //private var osc3: StupidSynthesizer = StupidSynthesizer(OscillatorType.SINE)
-    private var amplitudeEnvelope = EnvelopeDAHDSR()
+    private val synth = JSyn.createSynthesizer(JSynAndroidAudioDevice())
+    private val osc1 = MorphingOscillatorBL()
+    private val ampEnv1 = EnvelopeDAHDSR()
 
-    var frequency: UnitInputPort
+    private val osc2 = MorphingOscillatorBL()
+    private val ampEnv2 = EnvelopeDAHDSR()
 
-    var osc1Amplitude: UnitInputPort
-    //var osc2Amplitude: UnitInputPort
-    //var osc3Amplitude: UnitInputPort
-
-    var mixedOutput: UnitOutputPort
+    private var lineOut: LineOut
 
     init {
-        add(frequencyPassThrough)
-        add(osc1)
-        //add(osc2)
-        //add(osc3)
-        add(amplitudeEnvelope)
+        synth.add(osc1)
+        synth.add(ampEnv1)
+        synth.add(osc2)
+        synth.add(ampEnv2)
+        synth.add(LineOut().also { lineOut = it })
 
-        frequencyPassThrough.output.connect(osc1.frequency)
-        //frequencyPassThrough.output.connect(osc2.frequency)
-        //frequencyPassThrough.output.connect(osc3.frequency)
+        lineOut.input.disconnectAll(0)
+        lineOut.input.disconnectAll(1)
 
-        osc1.output.connect(amplitudeEnvelope.input)
-        //osc2.output.connect(amplitudeEnvelope.input)
-        //osc3.output.connect(amplitudeEnvelope.input)
+        osc1.output.connect(ampEnv1.amplitude)
+        osc2.output.connect(ampEnv2.amplitude)
 
-        addPort(osc1.amplitude.also { osc1Amplitude = it }, OSC_1_AMPLITUDE)
-        //addPort(osc2.amplitude.also { osc2Amplitude = it }, OSC_2_AMPLITUDE)
-        //addPort(osc3.amplitude.also { osc3Amplitude = it }, OSC_3_AMPLITUDE)
-        addPort(frequencyPassThrough.input.also { frequency = it }, PORT_NAME_FREQUENCY)
-        addPort(amplitudeEnvelope.output.also { mixedOutput = it }, PORT_NAME_OUTPUT)
+        ampEnv1.output.connect(0, lineOut.input, 0)
+        ampEnv1.output.connect(0, lineOut.input, 1)
+        ampEnv2.output.connect(0, lineOut.input, 0)
+        ampEnv2.output.connect(0, lineOut.input, 1)
 
-        amplitudeEnvelope.decay.set(5.0)
-        frequency.set(1500.0)
-        osc1Amplitude.set(1.0)
-        //osc2Amplitude.set(1.0)
-        //osc3Amplitude.set(1.0)
-
-        amplitudeEnvelope.export(this, "Amp")
-        amplitudeEnvelope.setupAutoDisable(this)
+        ampEnv1.attack.set(0.0)
+        ampEnv1.decay.set(0.0)
+        ampEnv2.attack.set(0.0)
+        ampEnv2.decay.set(0.0)
     }
 
-    companion object {
-        const val OSC_1_AMPLITUDE = "OSC 1 Amplitude"
-        const val OSC_2_AMPLITUDE = "OSC 2 Amplitude"
-        const val OSC_3_AMPLITUDE = "OSC 3 Amplitude"
+    fun startSynth() {
+        synth.start()
+        lineOut.start()
     }
 
-    override fun getOutput(): UnitOutputPort {
-        return mixedOutput
+    fun stopSynth() {
+        lineOut.stop()
     }
 
-    override fun noteOn(frequency: Double, amplitude: Double, timeStamp: TimeStamp) {
-        this.frequency.set(frequency, timeStamp)
-        this.amplitudeEnvelope.amplitude.set(amplitude, timeStamp)
-        amplitudeEnvelope.input.on(timeStamp)
+    fun noteOn() {
+        ampEnv1.input.on()
+        ampEnv2.input.on()
     }
 
-    override fun noteOff(timeStamp: TimeStamp) {
-        println("note off ${timeStamp.time}")
-        amplitudeEnvelope.input.off(timeStamp)
+    fun noteOff() {
+        ampEnv1.input.off()
+        ampEnv2.input.off()
+    }
+
+    fun setOsc1Amplitude(amplitude: Double) {
+        ampEnv1.sustain.set(amplitude)
+    }
+
+    fun setOsc1Type(type: OscillatorType) {
+        osc1.shape.set(type.shapeForMorhingOsc)
+    }
+
+    fun setOsc2Amplitude(amplitude: Double) {
+        ampEnv2.sustain.set(amplitude)
+    }
+
+    fun setOsc2Type(type: OscillatorType) {
+        osc2.shape.set(type.shapeForMorhingOsc)
+    }
+
+    fun setOsc3Amplitude(amplitude: Double) {
+
+    }
+
+    fun setOsc3Type(type: OscillatorType) {
+
     }
 }

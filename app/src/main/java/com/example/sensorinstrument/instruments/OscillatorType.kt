@@ -1,26 +1,7 @@
 package com.example.sensorinstrument.instruments
 
-import com.jsyn.unitgen.SawtoothOscillator
-import com.jsyn.unitgen.SineOscillator
-import com.jsyn.unitgen.SquareOscillator
-import com.jsyn.unitgen.UnitOscillator
-
-enum class OscillatorType() {
-    SINE {
-        override fun getOscillator(): UnitOscillator {
-            return SineOscillator()
-        }
-    },
-    SQUARE {
-        override fun getOscillator(): UnitOscillator {
-            return SquareOscillator()
-        }
-    },
-    SAW {
-        override fun getOscillator(): UnitOscillator {
-            return SawtoothOscillator()
-        }
-    };
-
-    abstract fun getOscillator(): UnitOscillator
+enum class OscillatorType(val shapeForMorhingOsc: Double) {
+    SINE(-1.0),
+    SAWTOOTH(0.0),
+    SQUARE(1.0);
 }

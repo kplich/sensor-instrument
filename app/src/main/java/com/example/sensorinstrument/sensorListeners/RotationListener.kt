@@ -9,7 +9,6 @@ import android.hardware.SensorManager
 import android.view.Surface
 import android.view.View
 import android.view.WindowManager
-import com.example.sensorinstrument.mainActivity.SynthesizerWrapper
 import com.example.sensorinstrument.maxDegreeForward
 import com.example.sensorinstrument.minColorValue
 import com.example.sensorinstrument.minDegreeBackward
