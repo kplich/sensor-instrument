@@ -2,6 +2,7 @@ package com.example.sensorinstrument.mainActivity
 
 import android.view.MotionEvent
 import android.view.View
+import kotlin.concurrent.thread
 
 class PlayingViewListener(private val synthesizerWrapper: SynthesizerWrapper): View.OnTouchListener {
 

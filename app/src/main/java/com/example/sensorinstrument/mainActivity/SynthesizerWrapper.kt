@@ -1,17 +1,10 @@
 package com.example.sensorinstrument.mainActivity
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.view.View
 import com.example.sensorinstrument.instruments.JSynAndroidAudioDevice
 import com.example.sensorinstrument.instruments.TripleOscSynthesizer
 import com.example.sensorinstrument.transformValueBetweenRanges
 import com.jsyn.JSyn
 import com.jsyn.instruments.DualOscillatorSynthVoice
-import com.jsyn.instruments.NoiseHit
-import com.jsyn.instruments.SubtractiveSynthVoice
-import com.jsyn.ports.UnitInputPort
-import com.jsyn.unitgen.Circuit
 import com.jsyn.unitgen.LineOut
 import com.jsyn.util.PolyphonicInstrument
 
@@ -95,11 +88,14 @@ class SynthesizerWrapper (
     }
 
     fun noteOn() {
-        instrument.noteOn(id, 500.0, 1.0, synth.createTimeStamp())
+        println("note on $id")
+        instrument.noteOn(id, 1000.0, 1.0, synth.createTimeStamp())
     }
 
     fun noteOff() {
-        instrument.noteOff(id++, synth.createTimeStamp())
+        println("not off $id")
+        instrument.noteOff(id, synth.createTimeStamp())
+        id++
     }
 
     companion object {
