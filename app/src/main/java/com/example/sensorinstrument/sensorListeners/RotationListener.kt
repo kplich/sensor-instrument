@@ -74,6 +74,34 @@ class RotationListener(private val windowManager: WindowManager,
         }
     }
 
+    private var pentatonicFrequencies: List<Double> = /*middleNote.getPentatonicFrequencies()*/ emptyList()
+
+    private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
+
+        val numberOfNotes = pentatonicFrequencies.size
+        val degreesForNote = 30
+
+        if(numberOfNotes * degreesForNote > 360) {
+            throw IllegalArgumentException("Too many ($numberOfNotes) or too wide ($degreesForNote) notes!")
+        }
+
+        val degreesForHalfRange: Double =   if(numberOfNotes % 2 == 0) {
+            (numberOfNotes / 2) * degreesForNote
+        }
+        else {
+            ((numberOfNotes / 2) * degreesForNote) + degreesForNote / 2
+        }.toDouble()
+
+        var noteIndex = (degrees + degreesForHalfRange).toInt() / degreesForNote
+        if (noteIndex < 0) {
+            noteIndex = 0
+        } else if (noteIndex > numberOfNotes-1) {
+            noteIndex = numberOfNotes-1
+        }
+
+        return pentatonicFrequencies[noteIndex]
+    }
+
     private fun mapDegreesToViewColor(degrees: Float): Int {
         val mainColor = Color.parseColor("#ff0000")
 
