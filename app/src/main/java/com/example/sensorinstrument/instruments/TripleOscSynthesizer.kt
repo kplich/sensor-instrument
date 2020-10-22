@@ -14,6 +14,9 @@ class TripleOscSynthesizer {
     private val osc2 = MorphingOscillatorBL()
     private val ampEnv2 = EnvelopeDAHDSR()
 
+    private val osc3 = MorphingOscillatorBL()
+    private val ampEnv3 = EnvelopeDAHDSR()
+
     private var lineOut: LineOut
 
     init {
@@ -21,6 +24,8 @@ class TripleOscSynthesizer {
         synth.add(ampEnv1)
         synth.add(osc2)
         synth.add(ampEnv2)
+        synth.add(osc3)
+        synth.add(ampEnv3)
         synth.add(LineOut().also { lineOut = it })
 
         lineOut.input.disconnectAll(0)
@@ -28,16 +33,21 @@ class TripleOscSynthesizer {
 
         osc1.output.connect(ampEnv1.amplitude)
         osc2.output.connect(ampEnv2.amplitude)
+        osc3.output.connect(ampEnv3.amplitude)
 
         ampEnv1.output.connect(0, lineOut.input, 0)
         ampEnv1.output.connect(0, lineOut.input, 1)
         ampEnv2.output.connect(0, lineOut.input, 0)
         ampEnv2.output.connect(0, lineOut.input, 1)
+        ampEnv3.output.connect(0, lineOut.input, 0)
+        ampEnv3.output.connect(0, lineOut.input, 1)
 
         ampEnv1.attack.set(0.0)
         ampEnv1.decay.set(0.0)
         ampEnv2.attack.set(0.0)
         ampEnv2.decay.set(0.0)
+        ampEnv3.attack.set(0.0)
+        ampEnv3.decay.set(0.0)
     }
 
     fun startSynth() {
@@ -52,11 +62,13 @@ class TripleOscSynthesizer {
     fun noteOn() {
         ampEnv1.input.on()
         ampEnv2.input.on()
+        ampEnv3.input.on()
     }
 
     fun noteOff() {
         ampEnv1.input.off()
         ampEnv2.input.off()
+        ampEnv3.input.off()
     }
 
     fun setOsc1Amplitude(amplitude: Double) {
@@ -76,10 +88,10 @@ class TripleOscSynthesizer {
     }
 
     fun setOsc3Amplitude(amplitude: Double) {
-
+        ampEnv3.sustain.set(amplitude)
     }
 
     fun setOsc3Type(type: OscillatorType) {
-
+        osc3.shape.set(type.shapeForMorhingOsc)
     }
 }

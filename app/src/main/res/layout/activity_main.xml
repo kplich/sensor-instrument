@@ -9,138 +9,214 @@
     tools:context=".mainActivity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/osc_1"
+        android:id="@+id/oscillators"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/defaultMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/osc_1_label"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/osc_1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/defaultMargin"
-            android:text="@string/osc1"
-            app:layout_constraintBottom_toTopOf="@+id/osc_1_amp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="OSC 1" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/osc_1_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defaultMargin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/osc_1_label"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_1_type_sine"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <TextView
+                android:id="@+id/osc_1_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sine"
-                android:theme="@style/Theme.MaterialComponents"
-                tools:text="SINE" />
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:text="@string/osc1"
+                app:layout_constraintBottom_toTopOf="@+id/osc_1_amp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="OSC 1" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_1_type_saw"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/osc_1_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sawtooth"
-                android:theme="@style/Theme.MaterialComponents"
-                tools:text="SAWTOOTH" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/osc_1_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_1_type_square"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_1_type_sine"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sine"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="SINE" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_1_type_saw"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sawtooth"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="SAWTOOTH" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_1_type_square"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/square"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="SQUARE" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <SeekBar
+                android:id="@+id/osc_1_amp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/square"
-                android:theme="@style/Widget.MaterialComponents.Chip.Choice"
-                tools:text="SQUARE" />
-        </com.google.android.material.chip.ChipGroup>
+                android:progress="100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_type" />
 
-        <SeekBar
-            android:id="@+id/osc_1_amp"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/osc_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:progress="100"
+            android:layout_margin="@dimen/defaultMargin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osc_1_type" />
+            app:layout_constraintTop_toBottomOf="@+id/osc_1">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/osc_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/defaultMargin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/osc_1">
-
-        <TextView
-            android:id="@+id/osc_2_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/defaultMargin"
-            android:text="@string/osc2"
-            app:layout_constraintBottom_toBottomOf="@+id/osc_2_type"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/osc2" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/osc_2_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/osc_2_label"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_2_type_sine"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <TextView
+                android:id="@+id/osc_2_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sine"
-                android:theme="@style/Theme.MaterialComponents"
-                tools:text="SINE" />
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:text="@string/osc2"
+                app:layout_constraintBottom_toBottomOf="@+id/osc_2_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/osc2" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_2_type_saw"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/osc_2_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sawtooth"
-                android:theme="@style/Theme.MaterialComponents"
-                tools:text="SAWTOOTH" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/osc_2_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/osc_2_type_square"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_2_type_sine"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sine"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="SINE" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_2_type_saw"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sawtooth"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="SAWTOOTH" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_2_type_square"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/square"
+                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+                    tools:text="SQUARE" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <SeekBar
+                android:id="@+id/osc_2_amp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/square"
-                android:theme="@style/Widget.MaterialComponents.Chip.Choice"
-                tools:text="SQUARE" />
-        </com.google.android.material.chip.ChipGroup>
+                android:progress="100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_type" />
 
-        <SeekBar
-            android:id="@+id/osc_2_amp"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/osc_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:progress="100"
+            android:layout_margin="@dimen/defaultMargin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osc_2_type" />
+            app:layout_constraintTop_toBottomOf="@+id/osc_2">
+
+            <TextView
+                android:id="@+id/osc_3_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:text="@string/osc3"
+                app:layout_constraintBottom_toBottomOf="@+id/osc_3_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/osc_3_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/osc_3_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_type_sine"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sine"
+                    android:theme="@style/Theme.MaterialComponents" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_type_saw"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sawtooth"
+                    android:theme="@style/Theme.MaterialComponents" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_type_square"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/square"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="@string/square" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <SeekBar
+                android:id="@+id/osc_3_amp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:progress="100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_type" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

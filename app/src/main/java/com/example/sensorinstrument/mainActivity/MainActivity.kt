@@ -35,6 +35,29 @@ class MainActivity: AppCompatActivity() {
         //the whole layout is clickable and used to produce sound
         binding.rootLayout.setOnTouchListener(PlayingViewListener(synthesizerWrapper))
 
+        setUpOsc1()
+        setUpOsc2()
+        setUpOsc3()
+
+        initializeSensors()
+        registerSensors()
+
+        synthesizerWrapper.startSynth()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        synthesizerWrapper.stopSynth()
+        unregisterSensors()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerSensors()
+        synthesizerWrapper.startSynth()
+    }
+
+    private fun setUpOsc1() {
         binding.osc1Type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.osc_1_type_sine -> synthesizerWrapper.setOsc1Type(OscillatorType.SINE)
@@ -46,7 +69,7 @@ class MainActivity: AppCompatActivity() {
         binding.osc1Type.check(R.id.osc_1_type_sine)
         binding.osc1Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-               synthesizerWrapper.setOsc1Amplitude(progress.div(seekBar.max.toDouble()))
+                synthesizerWrapper.setOsc1Amplitude(progress.div(seekBar.max.toDouble()))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -54,7 +77,9 @@ class MainActivity: AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
+    }
 
+    private fun setUpOsc2() {
         binding.osc2Type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.osc_2_type_sine -> synthesizerWrapper.setOsc2Type(OscillatorType.SINE)
@@ -74,23 +99,28 @@ class MainActivity: AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
-
-        initializeSensors()
-        registerSensors()
-
-        synthesizerWrapper.startSynth()
     }
 
-    override fun onPause() {
-        super.onPause()
-        synthesizerWrapper.stopSynth()
-        unregisterSensors()
-    }
+    private fun setUpOsc3() {
+        binding.osc3Type.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.osc_3_type_sine -> synthesizerWrapper.setOsc3Type(OscillatorType.SINE)
+                R.id.osc_3_type_saw -> synthesizerWrapper.setOsc3Type(OscillatorType.SAWTOOTH)
+                R.id.osc_3_type_square -> synthesizerWrapper.setOsc3Type(OscillatorType.SQUARE)
+                else -> println("$checkedId not found")
+            }
+        }
+        binding.osc3Type.check(R.id.osc_3_type_sine)
+        binding.osc3Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizerWrapper.setOsc3Amplitude(progress.div(seekBar.max.toDouble()))
+            }
 
-    override fun onResume() {
-        super.onResume()
-        registerSensors()
-        synthesizerWrapper.startSynth()
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
     }
 
     private fun initializeSensors() {
