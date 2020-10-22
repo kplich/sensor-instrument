@@ -94,4 +94,10 @@ class TripleOscSynthesizer {
     fun setOsc3Type(type: OscillatorType) {
         osc3.shape.set(type.shapeForMorhingOsc)
     }
+
+    fun setFrequency(frequency: Double) {
+        osc1.frequency.set(frequency)
+        osc2.frequency.set(frequency)
+        osc3.frequency.set(frequency)
+    }
 }

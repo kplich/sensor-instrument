@@ -9,13 +9,15 @@ import android.hardware.SensorManager
 import android.view.Surface
 import android.view.View
 import android.view.WindowManager
+import com.example.sensorinstrument.instruments.TripleOscSynthesizer
 import com.example.sensorinstrument.maxDegreeForward
 import com.example.sensorinstrument.minColorValue
 import com.example.sensorinstrument.minDegreeBackward
 import com.example.sensorinstrument.transformValueBetweenRanges
 
 class RotationListener(private val windowManager: WindowManager,
-                       private val coloredView: View
+                       private val coloredView: View,
+                       private val synthesizer: TripleOscSynthesizer
 ): SensorEventListener {
 
 
