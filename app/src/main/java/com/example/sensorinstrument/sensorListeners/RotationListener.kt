@@ -73,16 +73,19 @@ class RotationListener(private val windowManager: WindowManager,
             }
 
             coloredView.background = ColorDrawable(mapDegreesToViewColor(orientation[1]))
+            synthesizer.setFrequency(mapDegreesToOscillatorFrequency(orientation[2]))
         }
     }
 
+    private val pentatonicDegrees = intArrayOf(-12, -9, -7, -5, -2, 0, 3, 5, 7, 10, 12)
+
     private fun getPentatonicFrequencies(): List<Double> {
-        return Note.pentatonicDegrees.map { degree ->
+        return pentatonicDegrees.map { degree ->
             440 * 2.toDouble().pow(degree.toDouble() / 12)
         }
     }
 
-    private var pentatonicFrequencies: List<Double> = /*middleNote.getPentatonicFrequencies()*/ emptyList()
+    private var pentatonicFrequencies: List<Double> = getPentatonicFrequencies()
 
     private fun mapDegreesToOscillatorFrequency(degrees: Float): Double {
 
