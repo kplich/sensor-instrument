@@ -10,10 +10,12 @@ import android.view.Surface
 import android.view.View
 import android.view.WindowManager
 import com.example.sensorinstrument.instruments.TripleOscSynthesizer
+import com.example.sensorinstrument.mainActivity.Note
 import com.example.sensorinstrument.maxDegreeForward
 import com.example.sensorinstrument.minColorValue
 import com.example.sensorinstrument.minDegreeBackward
 import com.example.sensorinstrument.transformValueBetweenRanges
+import kotlin.math.pow
 
 class RotationListener(private val windowManager: WindowManager,
                        private val coloredView: View,
@@ -71,6 +73,12 @@ class RotationListener(private val windowManager: WindowManager,
             }
 
             coloredView.background = ColorDrawable(mapDegreesToViewColor(orientation[1]))
+        }
+    }
+
+    private fun getPentatonicFrequencies(): List<Double> {
+        return Note.pentatonicDegrees.map { degree ->
+            440 * 2.toDouble().pow(degree.toDouble() / 12)
         }
     }
 
