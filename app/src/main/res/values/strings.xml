@@ -11,4 +11,10 @@
     <string name="sine">SINE</string>
     <string name="sawtooth">SAWTOOTH</string>
     <string name="square">SQUARE</string>
+    <string name="attack">Attack</string>
+    <string name="amplitude">Amplitude</string>
+    <string name="decay">Decay</string>
+    <string name="release">Release</string>
+    <string name="hold">Hold</string>
+    <string name="arrow_down">▼</string>
 </resources>

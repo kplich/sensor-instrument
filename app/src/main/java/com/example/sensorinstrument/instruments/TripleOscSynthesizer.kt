@@ -75,6 +75,22 @@ class TripleOscSynthesizer {
         ampEnv1.sustain.set(amplitude)
     }
 
+    fun setOsc1Attack(attack: Double) {
+        ampEnv1.attack.set(attack)
+    }
+
+    fun setOsc1Decay(decay: Double) {
+        ampEnv1.decay.set(decay)
+    }
+
+    fun setOsc1Hold(hold: Double) {
+        ampEnv1.hold.set(hold)
+    }
+
+    fun setOsc1Release(release: Double) {
+        ampEnv1.release.set(release)
+    }
+
     fun setOsc1Type(type: OscillatorType) {
         osc1.shape.set(type.shapeForMorhingOsc)
     }
@@ -83,12 +99,44 @@ class TripleOscSynthesizer {
         ampEnv2.sustain.set(amplitude)
     }
 
+    fun setOsc2Attack(attack: Double) {
+        ampEnv2.attack.set(attack)
+    }
+
+    fun setOsc2Decay(decay: Double) {
+        ampEnv2.decay.set(decay)
+    }
+
+    fun setOsc2Hold(hold: Double) {
+        ampEnv2.hold.set(hold)
+    }
+
+    fun setOsc2Release(release: Double) {
+        ampEnv2.release.set(release)
+    }
+
     fun setOsc2Type(type: OscillatorType) {
         osc2.shape.set(type.shapeForMorhingOsc)
     }
 
     fun setOsc3Amplitude(amplitude: Double) {
         ampEnv3.sustain.set(amplitude)
+    }
+
+    fun setOsc3Attack(attack: Double) {
+        ampEnv3.attack.set(attack)
+    }
+
+    fun setOsc3Decay(decay: Double) {
+        ampEnv3.decay.set(decay)
+    }
+
+    fun setOsc3Hold(hold: Double) {
+        ampEnv3.hold.set(hold)
+    }
+
+    fun setOsc3Release(release: Double) {
+        ampEnv3.release.set(release)
     }
 
     fun setOsc3Type(type: OscillatorType) {

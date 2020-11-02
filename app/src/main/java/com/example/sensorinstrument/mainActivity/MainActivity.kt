@@ -4,16 +4,18 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.sensorinstrument.R
 import com.example.sensorinstrument.databinding.ActivityMainBinding
 import com.example.sensorinstrument.instruments.OscillatorType
 import com.example.sensorinstrument.instruments.TripleOscSynthesizer
 import com.example.sensorinstrument.sensorListeners.RotationListener
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var synthesizer: TripleOscSynthesizer
@@ -21,12 +23,16 @@ class MainActivity: AppCompatActivity() {
 
     private lateinit var rotationVectorSensor: Sensor
     private lateinit var rotationVectorListener: SensorEventListener
+    private var seconds = 5.0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.rootLayout)
+        val OscLayout_1: ConstraintLayout = findViewById(R.id.osc_1)
+        val OscLayout_2: ConstraintLayout = findViewById(R.id.osc_2)
+        val OscLayout_3: ConstraintLayout = findViewById(R.id.osc_3)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         synthesizer = TripleOscSynthesizer()
@@ -38,11 +44,62 @@ class MainActivity: AppCompatActivity() {
         setUpOsc2()
         setUpOsc3()
 
+        setOscLayoutsHeight(OscLayout_1, OscLayout_2, OscLayout_3);
         initializeSensors()
         registerSensors()
 
+
+
         synthesizer.startSynth()
     }
+
+    private fun setOscLayoutsHeight(
+        OscLayout_1: ConstraintLayout,
+        OscLayout_2: ConstraintLayout,
+        OscLayout_3: ConstraintLayout
+    ) {
+        binding.osc1Params.setOnCheckedChangeListener { _, isChecked ->
+
+            val params: ViewGroup.LayoutParams = OscLayout_1.layoutParams
+            if (isChecked) {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            } else {
+                val scale: Float = resources.displayMetrics.density
+                val pixels = (48 * scale + 0.5f).toInt()
+                params.height = pixels
+            }
+            OscLayout_1.layoutParams = params
+        }
+
+        binding.osc2Params.setOnCheckedChangeListener { _, isChecked ->
+
+            val params: ViewGroup.LayoutParams = OscLayout_2.layoutParams
+            if (isChecked) {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            } else {
+                val scale: Float = resources.displayMetrics.density
+                val pixels = (48 * scale + 0.5f).toInt()
+                params.height = pixels
+            }
+            OscLayout_2.layoutParams = params
+        }
+
+        binding.osc3Params.setOnCheckedChangeListener { _, isChecked ->
+
+            val params: ViewGroup.LayoutParams = OscLayout_3.layoutParams
+            if (isChecked) {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            } else {
+                val scale: Float = resources.displayMetrics.density
+                val pixels = (48 * scale + 0.5f).toInt()
+                params.height = pixels
+            }
+            OscLayout_3.layoutParams = params
+        }
+
+
+    }
+
 
     override fun onPause() {
         super.onPause()
@@ -76,6 +133,49 @@ class MainActivity: AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
+        binding.osc1Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Attack(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc1Decay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Decay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc1Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Hold(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc1Release.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Release(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
     }
 
     private fun setUpOsc2() {
@@ -98,7 +198,53 @@ class MainActivity: AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
+
+
+        binding.osc2Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Attack(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc2Decay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Decay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc2Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Hold(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc2Release.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Release(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
     }
+
 
     private fun setUpOsc3() {
         binding.osc3Type.setOnCheckedChangeListener { _, checkedId ->
@@ -113,6 +259,51 @@ class MainActivity: AppCompatActivity() {
         binding.osc3Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc3Amplitude(progress.div(seekBar.max.toDouble()))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+
+        binding.osc3Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Attack(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc3Decay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Decay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc3Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Hold(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc3Release.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Release(progress.div(seekBar.max.toDouble()).times(seconds))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -135,7 +326,8 @@ class MainActivity: AppCompatActivity() {
         sensorManager.registerListener(
             rotationVectorListener,
             rotationVectorSensor,
-            SensorManager.SENSOR_DELAY_FASTEST)
+            SensorManager.SENSOR_DELAY_FASTEST
+        )
     }
 
     private fun unregisterSensors() {
