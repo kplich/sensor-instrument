@@ -71,9 +71,6 @@ class TripleOscSynthesizer {
         ampEnv3.input.off()
     }
 
-    fun setOsc1Amplitude(amplitude: Double) {
-        ampEnv1.sustain.set(amplitude)
-    }
 
     fun setOsc1Attack(attack: Double) {
         ampEnv1.attack.set(attack)
@@ -95,10 +92,6 @@ class TripleOscSynthesizer {
         osc1.shape.set(type.shapeForMorhingOsc)
     }
 
-    fun setOsc2Amplitude(amplitude: Double) {
-        ampEnv2.sustain.set(amplitude)
-    }
-
     fun setOsc2Attack(attack: Double) {
         ampEnv2.attack.set(attack)
     }
@@ -117,10 +110,6 @@ class TripleOscSynthesizer {
 
     fun setOsc2Type(type: OscillatorType) {
         osc2.shape.set(type.shapeForMorhingOsc)
-    }
-
-    fun setOsc3Amplitude(amplitude: Double) {
-        ampEnv3.sustain.set(amplitude)
     }
 
     fun setOsc3Attack(attack: Double) {

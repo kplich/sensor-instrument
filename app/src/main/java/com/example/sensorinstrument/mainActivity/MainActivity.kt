@@ -122,16 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc1Type.check(R.id.osc_1_type_sine)
-        binding.osc1Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc1Amplitude(progress.div(seekBar.max.toDouble()))
-            }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
-        })
         binding.osc1Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Attack(progress.div(seekBar.max.toDouble()).times(seconds))
@@ -156,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.osc1Sustain.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc1Sustain(progress.div(seekBar.max.toDouble()).times(seconds))
+                synthesizer.setOsc1Sustain(progress.div(seekBar.max.toDouble()))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -187,17 +178,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc2Type.check(R.id.osc_2_type_sine)
-        binding.osc2Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc2Amplitude(progress.div(seekBar.max.toDouble()))
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
-        })
-
 
         binding.osc2Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -223,7 +203,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.osc2Sustain.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc2Sustain(progress.div(seekBar.max.toDouble()).times(seconds))
+                synthesizer.setOsc2Sustain(progress.div(seekBar.max.toDouble()))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -255,17 +235,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc3Type.check(R.id.osc_3_type_sine)
-        binding.osc3Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc3Amplitude(progress.div(seekBar.max.toDouble()))
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
-        })
-
 
         binding.osc3Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -291,7 +260,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.osc3Sustain.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                synthesizer.setOsc3Sustain(progress.div(seekBar.max.toDouble()).times(seconds))
+                synthesizer.setOsc3Sustain(progress.div(seekBar.max.toDouble()))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}

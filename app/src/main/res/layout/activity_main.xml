@@ -42,7 +42,7 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_sustain" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_decay" />
 
             <TextView
@@ -86,23 +86,15 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_amp" />
 
             <TextView
                 android:id="@+id/osc_1_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/osc1"
-                app:layout_constraintBottom_toTopOf="@+id/osc_1_amp"
+                app:layout_constraintBottom_toTopOf="@+id/textAttack_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="OSC 1" />
@@ -147,23 +139,13 @@
             </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
-                android:id="@+id/osc_1_amp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
-                app:layout_constraintTop_toBottomOf="@+id/osc_1_type" />
-
-            <SeekBar
                 android:id="@+id/osc_1_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
-                app:layout_constraintTop_toBottomOf="@+id/osc_1_amp" />
+                app:layout_constraintStart_toEndOf="@+id/textRelease_1"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_type" />
 
             <TextView
                 android:id="@+id/textAttack_1"
@@ -202,7 +184,7 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_sustain" />
 
             <TextView
@@ -225,10 +207,11 @@
                 android:id="@+id/osc_2_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_decay" />
 
             <TextView
@@ -243,26 +226,18 @@
                 android:id="@+id/osc_2_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_amp" />
 
             <TextView
                 android:id="@+id/osc_2_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/osc2"
-                app:layout_constraintBottom_toTopOf="@+id/osc_2_amp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="OSC 2" />
@@ -307,23 +282,14 @@
             </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
-                android:id="@+id/osc_2_amp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
-                app:layout_constraintTop_toBottomOf="@+id/osc_2_type" />
-
-            <SeekBar
                 android:id="@+id/osc_2_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
-                app:layout_constraintTop_toBottomOf="@+id/osc_2_amp" />
+                app:layout_constraintStart_toEndOf="@+id/textRelease_2"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_type" />
 
             <TextView
                 android:id="@+id/textAttack_2"
@@ -360,7 +326,7 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_sustain" />
 
             <TextView
@@ -386,7 +352,7 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_decay" />
 
             <TextView
@@ -404,23 +370,15 @@
                 android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_3_amp" />
 
             <TextView
                 android:id="@+id/osc_3_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/osc3"
-                app:layout_constraintBottom_toTopOf="@+id/osc_3_amp"
+                app:layout_constraintBottom_toTopOf="@+id/textAttack_3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="OSC 3" />
@@ -465,23 +423,13 @@
             </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
-                android:id="@+id/osc_3_amp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
-                app:layout_constraintTop_toBottomOf="@+id/osc_3_type" />
-
-            <SeekBar
                 android:id="@+id/osc_3_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
-                app:layout_constraintTop_toBottomOf="@+id/osc_3_amp" />
+                app:layout_constraintStart_toEndOf="@+id/textRelease_3"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_type" />
 
             <TextView
                 android:id="@+id/textAttack_3"
