@@ -15,6 +15,6 @@
     <string name="amplitude">Amplitude</string>
     <string name="decay">Decay</string>
     <string name="release">Release</string>
-    <string name="hold">Hold</string>
+    <string name="sustain">Sustain</string>
     <string name="arrow_down">▼</string>
 </resources>

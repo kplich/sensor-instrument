@@ -83,8 +83,8 @@ class TripleOscSynthesizer {
         ampEnv1.decay.set(decay)
     }
 
-    fun setOsc1Hold(hold: Double) {
-        ampEnv1.hold.set(hold)
+    fun setOsc1Sustain(sustain: Double) {
+        ampEnv1.sustain.set(sustain)
     }
 
     fun setOsc1Release(release: Double) {
@@ -107,8 +107,8 @@ class TripleOscSynthesizer {
         ampEnv2.decay.set(decay)
     }
 
-    fun setOsc2Hold(hold: Double) {
-        ampEnv2.hold.set(hold)
+    fun setOsc2Sustain(sustain: Double) {
+        ampEnv2.sustain.set(sustain)
     }
 
     fun setOsc2Release(release: Double) {
@@ -131,8 +131,8 @@ class TripleOscSynthesizer {
         ampEnv3.decay.set(decay)
     }
 
-    fun setOsc3Hold(hold: Double) {
-        ampEnv3.hold.set(hold)
+    fun setOsc3Sustain(sustain: Double) {
+        ampEnv3.sustain.set(sustain)
     }
 
     fun setOsc3Release(release: Double) {
