@@ -2,6 +2,7 @@ package com.example.sensorinstrument.instruments
 
 import com.jsyn.JSyn
 import com.jsyn.unitgen.EnvelopeDAHDSR
+import com.jsyn.unitgen.FilterLowPass
 import com.jsyn.unitgen.LineOut
 import com.jsyn.unitgen.MorphingOscillatorBL
 
@@ -17,6 +18,8 @@ class TripleOscSynthesizer {
     private val osc3 = MorphingOscillatorBL()
     private val ampEnv3 = EnvelopeDAHDSR()
 
+    private val filter = FilterLowPass()
+
     private var lineOut: LineOut
 
     init {
@@ -26,6 +29,7 @@ class TripleOscSynthesizer {
         synth.add(ampEnv2)
         synth.add(osc3)
         synth.add(ampEnv3)
+        synth.add(filter)
         synth.add(LineOut().also { lineOut = it })
 
         lineOut.input.disconnectAll(0)
@@ -35,12 +39,12 @@ class TripleOscSynthesizer {
         osc2.output.connect(ampEnv2.amplitude)
         osc3.output.connect(ampEnv3.amplitude)
 
-        ampEnv1.output.connect(0, lineOut.input, 0)
-        ampEnv1.output.connect(0, lineOut.input, 1)
-        ampEnv2.output.connect(0, lineOut.input, 0)
-        ampEnv2.output.connect(0, lineOut.input, 1)
-        ampEnv3.output.connect(0, lineOut.input, 0)
-        ampEnv3.output.connect(0, lineOut.input, 1)
+        ampEnv1.output.connect(filter.input)
+        ampEnv2.output.connect(filter.input)
+        ampEnv3.output.connect(filter.input)
+
+        filter.output.connect(0, lineOut.input, 0)
+        filter.output.connect(0, lineOut.input, 1)
 
         ampEnv1.attack.set(0.0)
         ampEnv1.decay.set(0.0)
@@ -48,6 +52,7 @@ class TripleOscSynthesizer {
         ampEnv2.decay.set(0.0)
         ampEnv3.attack.set(0.0)
         ampEnv3.decay.set(0.0)
+        filter.frequency.setup(40.0, 15000.0, 15000.0)
     }
 
     fun startSynth() {
@@ -147,5 +152,13 @@ class TripleOscSynthesizer {
         osc1.frequency.set(frequency)
         osc2.frequency.set(frequency)
         osc3.frequency.set(frequency)
+    }
+
+    fun setFilterCutoff(frequency: Double) {
+        filter.frequency.set(frequency)
+    }
+
+    fun setFilterQ(q: Double) {
+        filter.Q.set(q)
     }
 }

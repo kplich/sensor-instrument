@@ -10,10 +10,6 @@ import android.view.Surface
 import android.view.View
 import android.view.WindowManager
 import com.example.sensorinstrument.instruments.TripleOscSynthesizer
-import com.example.sensorinstrument.mainActivity.Note
-import com.example.sensorinstrument.maxDegreeForward
-import com.example.sensorinstrument.minColorValue
-import com.example.sensorinstrument.minDegreeBackward
 import com.example.sensorinstrument.transformValueBetweenRanges
 import kotlin.math.pow
 
@@ -72,10 +68,17 @@ class RotationListener(private val windowManager: WindowManager,
                 orientation[i] = Math.toDegrees(orientation[i].toDouble()).toFloat()
             }
 
+
             coloredView.background = ColorDrawable(mapDegreesToViewColor(orientation[1]))
             synthesizer.setFrequency(mapDegreesToOscillatorFrequency(orientation[2]))
+            synthesizer.setFilterCutoff(mapDegreesToFilterCutoff(orientation[1]))
+            synthesizer.setFilterQ(mapDegreesToFilterResonance(orientation[0]))
+
         }
     }
+
+    private val minDegreeBackward = -15.0
+    private val maxDegreeForward = 90.0
 
     private val pentatonicDegrees = intArrayOf(-12, -9, -7, -5, -2, 0, 3, 5, 7, 10, 12)
 
@@ -113,41 +116,31 @@ class RotationListener(private val windowManager: WindowManager,
         return pentatonicFrequencies[noteIndex]
     }
 
+    private fun mapDegreesToFilterCutoff(degrees: Float): Double {
+        return transformValueBetweenRanges(
+            degrees.toDouble(),
+            minDegreeBackward, maxDegreeForward,
+            40.0, 15000.0
+        )
+    }
+
     private fun mapDegreesToViewColor(degrees: Float): Int {
-        val mainColor = Color.parseColor("#ff0000")
+        val hue = transformValueBetweenRanges(
+            degrees.toDouble(),
+            minDegreeBackward, maxDegreeForward,
+            0.0, 360.0
+        ).toFloat()
 
-        val mainR = Color.red(mainColor)
-        val mainG = Color.green(mainColor)
-        val mainB = Color.blue(mainColor)
+        println(hue)
 
-        var newR = 0
-        var newG = 0
-        var newB = 0
+        return Color.HSVToColor(floatArrayOf(hue, 0.9f, 0.9f))
+    }
 
-        if (mainR != 0) {
-            newR = transformValueBetweenRanges(
-                degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainR.toDouble(), minColorValue
-            ).toInt()
-        }
-
-        if (mainG != 0) {
-            newG = transformValueBetweenRanges(
-                degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainG.toDouble(), minColorValue
-            ).toInt()
-        }
-
-        if (mainB != 0) {
-            newB = transformValueBetweenRanges(
-                degrees.toDouble(),
-                minDegreeBackward, maxDegreeForward,
-                mainB.toDouble(), minColorValue
-            ).toInt()
-        }
-
-        return Color.rgb(newR, newG, newB)
+    private fun mapDegreesToFilterResonance(degrees: Float): Double {
+        return transformValueBetweenRanges(
+            degrees.toDouble(),
+            -90.0, 90.0,
+            1.0, 9.0
+        )
     }
 }
