@@ -5,16 +5,42 @@ import com.jsyn.unitgen.EnvelopeDAHDSR
 import com.jsyn.unitgen.FilterLowPass
 import com.jsyn.unitgen.LineOut
 import com.jsyn.unitgen.MorphingOscillatorBL
+import kotlin.math.pow
 
 class TripleOscSynthesizer {
 
     private val synth = JSyn.createSynthesizer(JSynAndroidAudioDevice())
+
+    var osc1Octave = 0
+        set(value) {
+            field = when {
+                value >= 1 -> 1
+                value == 0 -> 0
+                else -> -1
+            }
+        }
     private val osc1 = MorphingOscillatorBL()
     private val ampEnv1 = EnvelopeDAHDSR()
 
+    var osc2Octave = 0
+        set(value) {
+            field = when {
+                value >= 1 -> 1
+                value == 0 -> 0
+                else -> -1
+            }
+        }
     private val osc2 = MorphingOscillatorBL()
     private val ampEnv2 = EnvelopeDAHDSR()
 
+    var osc3Octave = 0
+        set(value) {
+            field = when {
+                value >= 1 -> 1
+                value == 0 -> 0
+                else -> -1
+            }
+        }
     private val osc3 = MorphingOscillatorBL()
     private val ampEnv3 = EnvelopeDAHDSR()
 
@@ -52,7 +78,7 @@ class TripleOscSynthesizer {
         ampEnv2.decay.set(0.0)
         ampEnv3.attack.set(0.0)
         ampEnv3.decay.set(0.0)
-        filter.frequency.setup(40.0, 15000.0, 15000.0)
+        filter.frequency.setup(500.0, 20000.0, 20000.0)
     }
 
     fun startSynth() {
@@ -149,9 +175,9 @@ class TripleOscSynthesizer {
     }
 
     fun setFrequency(frequency: Double) {
-        osc1.frequency.set(frequency)
-        osc2.frequency.set(frequency)
-        osc3.frequency.set(frequency)
+        osc1.frequency.set(frequency * 2.0.pow(osc1Octave))
+        osc2.frequency.set(frequency * 2.0.pow(osc2Octave))
+        osc3.frequency.set(frequency * 2.0.pow(osc3Octave))
     }
 
     fun setFilterCutoff(frequency: Double) {

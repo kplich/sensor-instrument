@@ -37,8 +37,8 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager {
     ArrayList<DeviceInfo> deviceRecords;
     private double suggestedOutputLatency = 0.003;
     private double suggestedInputLatency = 0.003;
-    private int defaultInputDeviceID = -1;
-    private int defaultOutputDeviceID = -1;
+    private int defaultInputDeviceID;
+    private int defaultOutputDeviceID;
 
     public JSynAndroidAudioDevice() {
         deviceRecords = new ArrayList<>();
@@ -112,7 +112,6 @@ public class JSynAndroidAudioDevice implements AudioDeviceManager {
                     AudioFormat.ENCODING_PCM_16BIT,
                     bufferSize,
                     AudioTrack.MODE_STREAM);
-            int mode = audioTrack.getPerformanceMode();
             audioTrack.play();
         }
 

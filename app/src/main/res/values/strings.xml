@@ -8,9 +8,12 @@
     <string name="osc1">OSC 1</string>
     <string name="osc2">OSC 2</string>
     <string name="osc3">OSC 3</string>
-    <string name="sine">SINE</string>
-    <string name="sawtooth">SAWTOOTH</string>
-    <string name="square">SQUARE</string>
+    <string name="sine">∿</string>
+    <string name="sawtooth">⋀</string>
+    <string name="square">⊓</string>
+    <string name="octave_minus_1">-1</string>
+    <string name="octave_0">0</string>
+    <string name="octave_plus_1">+1</string>
     <string name="attack">Attack</string>
     <string name="amplitude">Amplitude</string>
     <string name="decay">Decay</string>

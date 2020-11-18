@@ -30,9 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.rootLayout)
-        val OscLayout_1: ConstraintLayout = findViewById(R.id.osc_1)
-        val OscLayout_2: ConstraintLayout = findViewById(R.id.osc_2)
-        val OscLayout_3: ConstraintLayout = findViewById(R.id.osc_3)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         synthesizer = TripleOscSynthesizer()
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         setUpOsc2()
         setUpOsc3()
 
-        setOscLayoutsHeight(OscLayout_1, OscLayout_2, OscLayout_3)
+        setOscLayoutsHeight(binding.osc1, binding.osc2, binding.osc3)
         initializeSensors()
         registerSensors()
 
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         OscLayout_2: ConstraintLayout,
         OscLayout_3: ConstraintLayout
     ) {
-        binding.osc1Params.setOnCheckedChangeListener { _, isChecked ->
+        /*binding.osc1Params.setOnCheckedChangeListener { _, isChecked ->
 
             val params: ViewGroup.LayoutParams = OscLayout_1.layoutParams
             if (isChecked) {
@@ -94,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 params.height = pixels
             }
             OscLayout_3.layoutParams = params
-        }
+        }*/
 
 
     }
@@ -122,6 +119,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc1Type.check(R.id.osc_1_type_sine)
+
+        binding.osc1Octave.setOnCheckedChangeListener { _, checkedId ->
+            synthesizer.osc1Octave = when (checkedId) {
+                R.id.osc_1_octave_minus_1 -> -1
+                R.id.osc_1_octave_0 -> 0
+                R.id.osc_1_octave_1 -> 1
+                else -> 0
+            }
+        }
+        binding.osc1Octave.check(R.id.osc_1_octave_0)
+
         binding.osc1Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Amplitude(progress.div(seekBar.max.toDouble()))
@@ -142,7 +150,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
-
         binding.osc1Decay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Decay(progress.div(seekBar.max.toDouble()).times(seconds))
@@ -153,7 +160,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
-
         binding.osc1Sustain.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Sustain(progress.div(seekBar.max.toDouble()).times(seconds))
@@ -164,7 +170,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
-
         binding.osc1Release.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Release(progress.div(seekBar.max.toDouble()).times(seconds))
@@ -187,6 +192,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc2Type.check(R.id.osc_2_type_sine)
+
+        binding.osc2Octave.setOnCheckedChangeListener { _, checkedId ->
+            synthesizer.osc2Octave = when (checkedId) {
+                R.id.osc_2_octave_minus_1 -> -1
+                R.id.osc_2_octave_0 -> 0
+                R.id.osc_2_octave_1 -> 1
+                else -> 0
+            }
+        }
+        binding.osc2Octave.check(R.id.osc_2_octave_0)
+
         binding.osc2Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc2Amplitude(progress.div(seekBar.max.toDouble()))
@@ -244,7 +260,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
     private fun setUpOsc3() {
         binding.osc3Type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
@@ -255,6 +270,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.osc3Type.check(R.id.osc_3_type_sine)
+
+        binding.osc3Octave.setOnCheckedChangeListener { _, checkedId ->
+            synthesizer.osc3Octave = when (checkedId) {
+                R.id.osc_3_octave_minus_1 -> -1
+                R.id.osc_3_octave_0 -> 0
+                R.id.osc_3_octave_1 -> 1
+                else -> 0
+            }
+        }
+        binding.osc3Octave.check(R.id.osc_3_octave_0)
+
         binding.osc3Amp.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc3Amplitude(progress.div(seekBar.max.toDouble()))
