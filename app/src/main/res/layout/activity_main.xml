@@ -9,19 +9,78 @@
     tools:context=".mainActivity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oscillators_chips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.00">
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/osc_chips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/osc_1_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/osc1"
+                android:textAlignment="center"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:text="@string/osc1" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/osc_2_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/osc2"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:text="@string/osc2" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/osc_3_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/osc3"
+                android:theme="@style/Theme.MaterialComponents"
+                tools:text="@string/osc3" />
+        </com.google.android.material.chip.ChipGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/oscillators"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/oscillators_chips">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/osc_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,82 +89,67 @@
                 android:id="@+id/osc_1_release"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_sustain" />
 
             <TextView
                 android:id="@+id/textSustain_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:text="@string/sustain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_sustain" />
+                app:layout_constraintStart_toStartOf="@+id/textDecay_1"
+                app:layout_constraintTop_toBottomOf="@+id/textDecay_1" />
 
             <TextView
                 android:id="@+id/textRelease_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
                 android:text="@string/release"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_release" />
+                app:layout_constraintStart_toEndOf="@+id/textSustain_1"
+                app:layout_constraintStart_toStartOf="@+id/textSustain_1"
+                app:layout_constraintTop_toBottomOf="@+id/textSustain_1" />
 
             <SeekBar
                 android:id="@+id/osc_1_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textSustain_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_decay" />
 
             <TextView
                 android:id="@+id/textDecay_1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="23dp"
                 android:text="@string/decay"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_decay" />
+                app:layout_constraintStart_toEndOf="@+id/osc_1_type"
+                app:layout_constraintTop_toBottomOf="@+id/textAttack_1" />
 
             <SeekBar
                 android:id="@+id/osc_1_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
+                app:layout_constraintStart_toEndOf="@+id/textDecay_1"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_amp" />
-
-            <TextView
-                android:id="@+id/osc_1_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/osc1"
-                app:layout_constraintBottom_toTopOf="@+id/osc_1_amp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="OSC 1" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_1_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/osc_1_octave"
-                app:layout_constraintStart_toEndOf="@+id/osc_1_label"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:singleSelection="true">
 
@@ -137,22 +181,13 @@
                     tools:text="@string/square" />
             </com.google.android.material.chip.ChipGroup>
 
-            <SeekBar
-                android:id="@+id/osc_1_amp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
-                app:layout_constraintTop_toBottomOf="@+id/osc_1_octave" />
-
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_1_octave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_type"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -190,16 +225,52 @@
                 android:layout_marginTop="8dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_1"
-                app:layout_constraintTop_toBottomOf="@+id/osc_1_amp" />
+                app:layout_constraintStart_toEndOf="@+id/textAttack_1"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textAttack_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="@string/attack"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/osc_1_type"
                 app:layout_constraintTop_toTopOf="@+id/osc_1_attack" />
+
+            <com.example.sensorinstrument.mainActivity.RotaryKnobView
+                android:id="@+id/osc_1_amp"
+                class="com.example.sensorinstrument.mainActivity.RotaryKnobView"
+                android:layout_width="@dimen/knob_width"
+                android:layout_height="@dimen/knob_height"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                app:initialValue="50"
+                app:knobDrawable="@drawable/ic_rotary_knob"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_octave"
+                app:maxValue="100"
+                app:minValue="0" />
+
+            <TextView
+                android:id="@+id/textAmplitude_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/amplitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_amp" />
+
+            <TextView
+                android:id="@+id/amp_1_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="50"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/osc_1_amp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_octave" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -207,130 +278,76 @@
             android:id="@+id/osc_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/osc_1">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/osc_2_octave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_2_octave_minus_1"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/octave_minus_1"
-                    android:theme="@style/Theme.MaterialComponents"
-                    tools:text="@string/octave_minus_1" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_2_octave_0"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/octave_0"
-                    android:theme="@style/Theme.MaterialComponents"
-                    tools:text="@string/octave_0" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_2_octave_1"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/octave_plus_1"
-                    android:theme="@style/Theme.MaterialComponents"
-                    tools:text="@string/octave_plus_1" />
-            </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
                 android:id="@+id/osc_2_release"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_sustain" />
 
             <TextView
                 android:id="@+id/textSustain_2"
                 android:layout_width="wrap_content"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:text="@string/sustain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_sustain" />
+                app:layout_constraintStart_toStartOf="@+id/textDecay_2"
+                app:layout_constraintTop_toBottomOf="@+id/textDecay_2" />
 
             <TextView
                 android:id="@+id/textRelease_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
                 android:text="@string/release"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_release" />
+                app:layout_constraintStart_toEndOf="@+id/textSustain_2"
+                app:layout_constraintStart_toStartOf="@+id/textSustain_2"
+                app:layout_constraintTop_toBottomOf="@+id/textSustain_2" />
 
             <SeekBar
                 android:id="@+id/osc_2_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textSustain_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_decay" />
 
             <TextView
                 android:id="@+id/textDecay_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="23dp"
                 android:text="@string/decay"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_decay" />
+                app:layout_constraintStart_toEndOf="@+id/osc_2_type"
+                app:layout_constraintTop_toBottomOf="@+id/textAttack_2" />
 
             <SeekBar
                 android:id="@+id/osc_2_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
+                app:layout_constraintStart_toEndOf="@+id/textDecay_2"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_amp" />
-
-            <TextView
-                android:id="@+id/osc_2_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/osc2"
-                app:layout_constraintBottom_toTopOf="@+id/osc_2_amp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="OSC 2" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_2_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/osc_2_octave"
-                app:layout_constraintStart_toEndOf="@+id/osc_2_label"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:singleSelection="true">
 
@@ -362,55 +379,17 @@
                     tools:text="@string/square" />
             </com.google.android.material.chip.ChipGroup>
 
-            <SeekBar
-                android:id="@+id/osc_2_amp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
-                app:layout_constraintTop_toBottomOf="@+id/osc_2_octave" />
-
-            <SeekBar
-                android:id="@+id/osc_2_attack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_2"
-                app:layout_constraintTop_toBottomOf="@+id/osc_2_amp" />
-
-            <TextView
-                android:id="@+id/textAttack_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/attack"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_2_attack" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/osc_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osc_2">
-
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/osc_3_octave"
+                android:id="@+id/osc_2_octave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_type"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_3_octave_minus_1"
+                    android:id="@+id/osc_2_octave_minus_1"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -419,7 +398,7 @@
                     tools:text="@string/octave_minus_1" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_3_octave_0"
+                    android:id="@+id/osc_2_octave_0"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -428,7 +407,7 @@
                     tools:text="@string/octave_0" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/osc_3_octave_1"
+                    android:id="@+id/osc_2_octave_1"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -438,85 +417,135 @@
             </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
-                android:id="@+id/osc_3_release"
+                android:id="@+id/osc_2_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textAttack_2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textAttack_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/attack"
+                app:layout_constraintStart_toEndOf="@+id/osc_2_type"
+                app:layout_constraintTop_toTopOf="@+id/osc_2_attack" />
+
+            <com.example.sensorinstrument.mainActivity.RotaryKnobView
+                android:id="@+id/osc_2_amp"
+                class="com.example.sensorinstrument.mainActivity.RotaryKnobView"
+                android:layout_width="@dimen/knob_width"
+                android:layout_height="@dimen/knob_height"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                app:initialValue="50"
+                app:knobDrawable="@drawable/ic_rotary_knob"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_octave"
+                app:maxValue="100"
+                app:minValue="0" />
+
+            <TextView
+                android:id="@+id/textAmplitude_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/amplitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_amp" />
+
+            <TextView
+                android:id="@+id/amp_2_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="50"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/osc_2_amp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_octave" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/osc_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/osc_2">
+
+            <SeekBar
+                android:id="@+id/osc_3_release"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:progress="50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textRelease_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_sustain" />
 
             <TextView
                 android:id="@+id/textSustain_3"
                 android:layout_width="wrap_content"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:text="@string/sustain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_3_sustain" />
+                app:layout_constraintStart_toStartOf="@+id/textDecay_3"
+                app:layout_constraintTop_toBottomOf="@+id/textDecay_3" />
 
             <TextView
                 android:id="@+id/textRelease_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
                 android:text="@string/release"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_3_release" />
+                app:layout_constraintStart_toEndOf="@+id/textSustain_3"
+                app:layout_constraintStart_toStartOf="@+id/textSustain_3"
+                app:layout_constraintTop_toBottomOf="@+id/textSustain_3" />
 
             <SeekBar
                 android:id="@+id/osc_3_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textSustain_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_decay" />
 
             <TextView
                 android:id="@+id/textDecay_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="23dp"
                 android:text="@string/decay"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_3_decay" />
+                app:layout_constraintStart_toEndOf="@+id/osc_3_type"
+                app:layout_constraintTop_toBottomOf="@+id/textAttack_3" />
 
             <SeekBar
                 android:id="@+id/osc_3_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
+                app:layout_constraintStart_toEndOf="@+id/textDecay_3"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_attack" />
-
-            <TextView
-                android:id="@+id/textAmplitude_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amplitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/osc_3_amp" />
-
-            <TextView
-                android:id="@+id/osc_3_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/osc3"
-                app:layout_constraintBottom_toTopOf="@+id/osc_3_amp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="OSC 3" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_3_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 app:chipSpacingHorizontal="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/osc_3_octave"
-                app:layout_constraintStart_toEndOf="@+id/osc_3_label"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:singleSelection="true">
 
@@ -548,14 +577,42 @@
                     tools:text="@string/square" />
             </com.google.android.material.chip.ChipGroup>
 
-            <SeekBar
-                android:id="@+id/osc_3_amp"
-                android:layout_width="0dp"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/osc_3_octave"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progress="50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
-                app:layout_constraintTop_toBottomOf="@+id/osc_3_type" />
+                app:chipSpacingHorizontal="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_type"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_octave_minus_1"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/octave_minus_1"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="@string/octave_minus_1" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_octave_0"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/octave_0"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="@string/octave_0" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/osc_3_octave_1"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/octave_plus_1"
+                    android:theme="@style/Theme.MaterialComponents"
+                    tools:text="@string/octave_plus_1" />
+            </com.google.android.material.chip.ChipGroup>
 
             <SeekBar
                 android:id="@+id/osc_3_attack"
@@ -564,16 +621,52 @@
                 android:layout_marginTop="8dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textAmplitude_3"
-                app:layout_constraintTop_toBottomOf="@+id/osc_3_amp" />
+                app:layout_constraintStart_toEndOf="@+id/textAttack_3"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textAttack_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="@string/attack"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/osc_3_type"
                 app:layout_constraintTop_toTopOf="@+id/osc_3_attack" />
+
+            <com.example.sensorinstrument.mainActivity.RotaryKnobView
+                android:id="@+id/osc_3_amp"
+                class="com.example.sensorinstrument.mainActivity.RotaryKnobView"
+                android:layout_width="@dimen/knob_width"
+                android:layout_height="@dimen/knob_height"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                app:initialValue="50"
+                app:knobDrawable="@drawable/ic_rotary_knob"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_octave"
+                app:maxValue="100"
+                app:minValue="0" />
+
+            <TextView
+                android:id="@+id/textAmplitude_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/amplitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_amp" />
+
+            <TextView
+                android:id="@+id/amp_3_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="50"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/osc_3_amp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_octave" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
