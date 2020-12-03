@@ -69,17 +69,23 @@ class TripleOscSynthesizer {
         filter.output.connect(0, lineOut.input, 1)
 
         env1.amplitude.set(0.5)
+        env1.delay.set(0.0)
         env1.attack.set(2.5)
+        env1.hold.set(2.5)
         env1.decay.set(2.5)
         env1.sustain.set(0.5)
         env1.release.set(2.5)
         env2.amplitude.set(0.5)
+        env2.delay.set(0.0)
         env2.attack.set(2.5)
+        env2.hold.set(2.5)
         env2.decay.set(2.5)
         env2.sustain.set(0.5)
         env2.release.set(2.5)
         env3.amplitude.set(0.5)
+        env3.delay.set(0.0)
         env3.attack.set(2.5)
+        env3.hold.set(2.5)
         env3.decay.set(2.5)
         env3.sustain.set(0.5)
         env3.release.set(2.5)
@@ -111,8 +117,16 @@ class TripleOscSynthesizer {
         mul1.inputB.set(amplitude.coerceIn(0.0, 1.0))
     }
 
+    fun setOsc1Delay(delay: Double) {
+        env1.delay.set(delay)
+    }
+
     fun setOsc1Attack(attack: Double) {
         env1.attack.set(attack)
+    }
+
+    fun setOsc1Hold(hold: Double) {
+        env1.hold.set(hold)
     }
 
     fun setOsc1Decay(decay: Double) {
@@ -135,8 +149,16 @@ class TripleOscSynthesizer {
         mul2.inputB.set(amplitude.coerceIn(0.0, 1.0))
     }
 
+    fun setOsc2Delay(delay: Double) {
+        env2.delay.set(delay)
+    }
+
     fun setOsc2Attack(attack: Double) {
         env2.attack.set(attack)
+    }
+
+    fun setOsc2Hold(hold: Double) {
+        env2.hold.set(hold)
     }
 
     fun setOsc2Decay(decay: Double) {
@@ -159,8 +181,15 @@ class TripleOscSynthesizer {
         mul3.inputB.set(amplitude.coerceIn(0.0, 1.0))
     }
 
+    fun setOsc3Delay(delay: Double) {
+        env3.delay.set(delay)
+    }
+
     fun setOsc3Attack(attack: Double) {
         env3.attack.set(attack)
+    }
+    fun setOsc3Hold(hold: Double) {
+        env3.hold.set(hold)
     }
 
     fun setOsc3Decay(decay: Double) {

@@ -20,4 +20,7 @@
     <string name="release">R</string>
     <string name="sustain">S</string>
     <string name="arrow_down">▼</string>
+    <string name="hold">H</string>
+    <string name="delay">D</string>
+    <string name="initialVolume">50</string>
 </resources>

@@ -141,6 +141,16 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
         }
         binding.osc1Octave.check(R.id.osc_1_octave_0)
 
+        binding.osc1Delay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Delay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
 
         binding.osc1Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -152,6 +162,18 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
         })
+
+        binding.osc1Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc1Hold(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
         binding.osc1Decay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc1Decay(progress.div(seekBar.max.toDouble()).times(seconds))
@@ -208,10 +230,31 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
         }
         binding.osc2Octave.check(R.id.osc_2_octave_0)
 
+        binding.osc2Delay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Delay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
 
         binding.osc2Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc2Attack(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc2Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc2Hold(progress.div(seekBar.max.toDouble()).times(seconds))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -278,9 +321,31 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
         }
         binding.osc3Octave.check(R.id.osc_3_octave_0)
 
+        binding.osc3Delay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Delay(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
         binding.osc3Attack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 synthesizer.setOsc3Attack(progress.div(seekBar.max.toDouble()).times(seconds))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        binding.osc3Hold.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                synthesizer.setOsc3Hold(progress.div(seekBar.max.toDouble()).times(seconds))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}

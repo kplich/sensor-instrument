@@ -89,7 +89,7 @@
                 android:id="@+id/osc_1_release"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textRelease_1"
@@ -99,7 +99,7 @@
                 android:id="@+id/textSustain_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="11dp"
                 android:text="@string/sustain"
                 app:layout_constraintStart_toStartOf="@+id/textDecay_1"
                 app:layout_constraintTop_toBottomOf="@+id/textDecay_1" />
@@ -108,7 +108,7 @@
                 android:id="@+id/textRelease_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="11dp"
                 android:text="@string/release"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_1"
                 app:layout_constraintStart_toStartOf="@+id/textSustain_1"
@@ -118,7 +118,7 @@
                 android:id="@+id/osc_1_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_1"
@@ -129,20 +129,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="11dp"
                 android:text="@string/decay"
                 app:layout_constraintStart_toEndOf="@+id/osc_1_type"
-                app:layout_constraintTop_toBottomOf="@+id/textAttack_1" />
+                app:layout_constraintTop_toBottomOf="@+id/textHold_1" />
 
             <SeekBar
                 android:id="@+id/osc_1_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textDecay_1"
-                app:layout_constraintTop_toBottomOf="@+id/osc_1_attack" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_hold" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_1_type"
@@ -222,20 +222,21 @@
                 android:id="@+id/osc_1_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textAttack_1"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_delay" />
 
             <TextView
                 android:id="@+id/textAttack_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/attack"
                 app:layout_constraintStart_toEndOf="@+id/osc_1_type"
-                app:layout_constraintTop_toTopOf="@+id/osc_1_attack" />
+                app:layout_constraintTop_toBottomOf="@+id/textDelay_1" />
 
             <com.example.sensorinstrument.mainActivity.RotaryKnobView
                 android:id="@+id/osc_1_amp"
@@ -266,11 +267,50 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="50"
+                android:text="@string/initialVolume"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@+id/osc_1_amp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/osc_1_octave" />
+
+            <SeekBar
+                android:id="@+id/osc_1_delay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textDelay_1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textDelay_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/delay"
+                app:layout_constraintStart_toEndOf="@+id/osc_1_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textHold_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="11dp"
+                android:text="@string/hold"
+                app:layout_constraintStart_toEndOf="@+id/osc_1_octave"
+                app:layout_constraintTop_toBottomOf="@+id/textAttack_1" />
+
+            <SeekBar
+                android:id="@+id/osc_1_hold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:progress="50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textHold_1"
+                app:layout_constraintTop_toBottomOf="@+id/osc_1_attack" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -287,7 +327,7 @@
                 android:id="@+id/osc_2_release"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textRelease_2"
@@ -297,26 +337,24 @@
                 android:id="@+id/textSustain_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
                 android:text="@string/sustain"
                 app:layout_constraintStart_toStartOf="@+id/textDecay_2"
-                app:layout_constraintTop_toBottomOf="@+id/textDecay_2" />
+                app:layout_constraintTop_toTopOf="@+id/osc_2_sustain" />
 
             <TextView
                 android:id="@+id/textRelease_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="23dp"
                 android:text="@string/release"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_2"
                 app:layout_constraintStart_toStartOf="@+id/textSustain_2"
-                app:layout_constraintTop_toBottomOf="@+id/textSustain_2" />
+                app:layout_constraintTop_toTopOf="@+id/osc_2_release" />
 
             <SeekBar
                 android:id="@+id/osc_2_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_2"
@@ -327,20 +365,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="23dp"
                 android:text="@string/decay"
                 app:layout_constraintStart_toEndOf="@+id/osc_2_type"
-                app:layout_constraintTop_toBottomOf="@+id/textAttack_2" />
+                app:layout_constraintTop_toTopOf="@+id/osc_2_decay" />
 
             <SeekBar
                 android:id="@+id/osc_2_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textDecay_2"
-                app:layout_constraintTop_toBottomOf="@+id/osc_2_attack" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_hold" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_2_type"
@@ -420,11 +457,11 @@
                 android:id="@+id/osc_2_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textAttack_2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_delay" />
 
             <TextView
                 android:id="@+id/textAttack_2"
@@ -464,11 +501,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="50"
+                android:text="@string/initialVolume"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@+id/osc_2_amp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/osc_2_octave" />
+
+            <SeekBar
+                android:id="@+id/osc_2_delay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textDelay_2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textDelay_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/delay"
+                app:layout_constraintStart_toEndOf="@+id/osc_2_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textHold_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="11dp"
+                android:text="@string/hold"
+                app:layout_constraintStart_toEndOf="@+id/osc_2_octave"
+                app:layout_constraintTop_toBottomOf="@+id/textAttack_2" />
+
+            <SeekBar
+                android:id="@+id/osc_2_hold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:progress="50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textHold_2"
+                app:layout_constraintTop_toBottomOf="@+id/osc_2_attack" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -485,7 +562,7 @@
                 android:id="@+id/osc_3_release"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textRelease_3"
@@ -495,26 +572,24 @@
                 android:id="@+id/textSustain_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
                 android:text="@string/sustain"
                 app:layout_constraintStart_toStartOf="@+id/textDecay_3"
-                app:layout_constraintTop_toBottomOf="@+id/textDecay_3" />
+                app:layout_constraintTop_toTopOf="@+id/osc_3_sustain" />
 
             <TextView
                 android:id="@+id/textRelease_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="23dp"
                 android:text="@string/release"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_3"
                 app:layout_constraintStart_toStartOf="@+id/textSustain_3"
-                app:layout_constraintTop_toBottomOf="@+id/textSustain_3" />
+                app:layout_constraintTop_toTopOf="@+id/osc_3_release" />
 
             <SeekBar
                 android:id="@+id/osc_3_sustain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textSustain_3"
@@ -525,20 +600,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="23dp"
                 android:text="@string/decay"
                 app:layout_constraintStart_toEndOf="@+id/osc_3_type"
-                app:layout_constraintTop_toBottomOf="@+id/textAttack_3" />
+                app:layout_constraintTop_toTopOf="@+id/osc_3_decay" />
 
             <SeekBar
                 android:id="@+id/osc_3_decay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textDecay_3"
-                app:layout_constraintTop_toBottomOf="@+id/osc_3_attack" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_hold" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/osc_3_type"
@@ -618,11 +693,11 @@
                 android:id="@+id/osc_3_attack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:progress="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textAttack_3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_delay" />
 
             <TextView
                 android:id="@+id/textAttack_3"
@@ -662,11 +737,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="50"
+                android:text="@string/initialVolume"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@+id/osc_3_amp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/osc_3_octave" />
+
+            <SeekBar
+                android:id="@+id/osc_3_delay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textDelay_3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textDelay_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/delay"
+                app:layout_constraintStart_toEndOf="@+id/osc_3_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textHold_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/hold"
+                app:layout_constraintStart_toEndOf="@+id/osc_3_octave"
+                app:layout_constraintTop_toTopOf="@+id/osc_3_hold" />
+
+            <SeekBar
+                android:id="@+id/osc_3_hold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:progress="50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textHold_3"
+                app:layout_constraintTop_toBottomOf="@+id/osc_3_attack" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
