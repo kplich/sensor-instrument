@@ -1,13 +1,30 @@
 package com.example.sensorinstrument.instruments
 
 import com.jsyn.JSyn
-import com.jsyn.ports.UnitOutputPort
 import com.jsyn.unitgen.*
 import kotlin.math.pow
 
 class TripleOscSynthesizer {
 
     private val synth = JSyn.createSynthesizer(JSynAndroidAudioDevice())
+
+    private val lfoActual = SineOscillator().apply {
+        frequency.set(6.0)
+    }
+    // input A - lfo signal
+    // input B - strength
+    // input C - one
+    private val lfoToMultiplier = MultiplyAdd().apply {
+        inputA.setup(-1.0, 0.0, 1.0)
+        inputB.setup(0.0, 0.0, 0.02)
+        inputC.set(1.0)
+    }
+    // input A - frequency multiplier
+    // input B - frequency to be modulated
+    private val modulatedFrequency = Multiply().apply {
+        inputA.setup(-19.0, 0.0, 21.0)
+        inputB.setup(20.0, 20.0, 20000.0)
+    }
 
     var osc1Octave = 0
         set(value) {
@@ -38,6 +55,9 @@ class TripleOscSynthesizer {
     private var lineOut: LineOut
 
     init {
+        synth.add(lfoActual)
+        synth.add(lfoToMultiplier)
+        synth.add(modulatedFrequency)
         synth.add(osc1)
         synth.add(mul1)
         synth.add(env1)
@@ -52,6 +72,12 @@ class TripleOscSynthesizer {
 
         lineOut.input.disconnectAll(0)
         lineOut.input.disconnectAll(1)
+
+        lfoActual.output.connect(lfoToMultiplier.inputA)
+        lfoToMultiplier.output.connect(modulatedFrequency.inputA)
+        modulatedFrequency.output.connect(osc1.frequency)
+        modulatedFrequency.output.connect(osc2.frequency)
+        modulatedFrequency.output.connect(osc3.frequency)
 
         osc1.output.connect(mul1.inputA)
         osc2.output.connect(mul2.inputA)
@@ -70,26 +96,26 @@ class TripleOscSynthesizer {
 
         env1.amplitude.set(0.5)
         env1.delay.set(0.0)
-        env1.attack.set(2.5)
-        env1.hold.set(2.5)
+        env1.attack.set(0.2)
+        env1.hold.set(0.0)
         env1.decay.set(2.5)
-        env1.sustain.set(0.5)
-        env1.release.set(2.5)
+        env1.sustain.set(0.2)
+        env1.release.set(0.0)
         env2.amplitude.set(0.5)
         env2.delay.set(0.0)
-        env2.attack.set(2.5)
-        env2.hold.set(2.5)
+        env2.attack.set(0.2)
+        env2.hold.set(0.0)
         env2.decay.set(2.5)
         env2.sustain.set(0.5)
-        env2.release.set(2.5)
+        env2.release.set(0.2)
         env3.amplitude.set(0.5)
         env3.delay.set(0.0)
-        env3.attack.set(2.5)
-        env3.hold.set(2.5)
+        env3.attack.set(0.2)
+        env3.hold.set(0.0)
         env3.decay.set(2.5)
         env3.sustain.set(0.5)
-        env3.release.set(2.5)
-        filter.frequency.setup(500.0, 20000.0, 20000.0)
+        env3.release.set(0.2)
+        filter.frequency.setup(150.0, 20000.0, 20000.0)
     }
 
     fun startSynth() {
@@ -208,10 +234,12 @@ class TripleOscSynthesizer {
         osc3.shape.set(type.shapeForMorhingOsc)
     }
 
+    fun setLfo(amount: Double) {
+        lfoToMultiplier.inputB.set(amount.coerceIn(0.0, 0.02))
+    }
+
     fun setFrequency(frequency: Double) {
-        osc1.frequency.set(frequency * 2.0.pow(osc1Octave))
-        osc2.frequency.set(frequency * 2.0.pow(osc2Octave))
-        osc3.frequency.set(frequency * 2.0.pow(osc3Octave))
+        modulatedFrequency.inputB.set(frequency * 2.0.pow(osc1Octave))
     }
 
     fun setFilterCutoff(frequency: Double) {

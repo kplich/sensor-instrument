@@ -70,19 +70,19 @@ class RotationListener(private val windowManager: WindowManager,
 
             coloredView.background = ColorDrawable(mapDegreesToViewColor(orientation[1]))
             synthesizer.setFrequency(mapDegreesToOscillatorFrequency(orientation[2]))
-            synthesizer.setFilterCutoff(mapDegreesToFilterCutoff(orientation[1]))
-            synthesizer.setFilterQ(mapDegreesToFilterResonance(orientation[0]))
+                //synthesizer.setFilterCutoff(mapDegreesToFilterCutoff(orientation[1]))
+            //synthesizer.setFilterQ(mapDegreesToFilterResonance(orientation[0]))
         }
     }
 
-    private val minDegreeBackward = -10.0
-    private val maxDegreeForward = 20.0
+    private val minDegreeBackward = 0.0
+    private val maxDegreeForward = 50.0
 
     private val pentatonicDegrees = intArrayOf(-12, -9, -7, -5, -2, 0, 3, 5, 7, 10, 12)
 
     private fun getPentatonicFrequencies(): List<Double> {
         return pentatonicDegrees.map { degree ->
-            440 * 2.toDouble().pow(degree.toDouble() / 12)
+            440 * 2.toDouble().pow((degree.toDouble() + 4) / 12)
         }
     }
 
@@ -118,7 +118,7 @@ class RotationListener(private val windowManager: WindowManager,
         return transformValueBetweenRanges(
             degrees.toDouble(),
             minDegreeBackward, maxDegreeForward,
-            50.0, 500.0
+            200.0, 500.0
         )
     }
 
